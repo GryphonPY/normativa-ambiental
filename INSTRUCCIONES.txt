@@ -9,7 +9,7 @@ Sigue estos pasos para poner tu página en línea.
  PASO 1: PREPARA TU PROYECTO EN GITHUB (O SIMILAR)
 ------------------------------------------------------------
 
-Asegúrate de que todos los archivos (`netlify.toml`, `requirements.txt`, etc.) estén en tu repositorio de GitHub, GitLab o Bitbucket.
+Asegúrate de que todos los archivos (`netlify.toml`, la carpeta `netlify` con tus funciones y su `requirements.txt`, etc.) estén en tu repositorio de GitHub, GitLab o Bitbucket.
 
 ------------------------------------------------------------
  PASO 2: CONECTA TU PROYECTO A NETLIFY
