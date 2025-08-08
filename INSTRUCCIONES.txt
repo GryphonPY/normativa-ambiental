@@ -48,3 +48,9 @@ Como me pediste, he puesto la clave de la IA directamente en el código para que
 Y cambiar la línea que dice `API_KEY = "AIzaSy..."` por tu nueva clave.
 
 ¡Eso es todo! Mucho éxito con tu proyecto.
+
+------------------------------------------------------------
+ NOTA ADICIONAL (SOBRE EL ARREGLO)
+------------------------------------------------------------
+
+Se ha corregido la configuración de Netlify (`netlify.toml`) para asegurar que detecte y publique la función de IA correctamente. Con estos últimos cambios, el despliegue debería funcionar sin problemas.

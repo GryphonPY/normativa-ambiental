@@ -1,7 +1,15 @@
-[build]
-  functions = "netlify/functions"
+# Configuration for Netlify
 
+[build]
+  # This is the directory that contains the built site files.
+  # Since our site is static and in the 'seguridad' folder, we point to it.
+  publish = "seguridad/"
+
+  # This is the directory where Netlify will find our serverless functions.
+  functions = "netlify/functions/"
+
+# Redirect rule to make our function accessible at a clean URL.
 [[redirects]]
   from = "/api/ask-ai"
   to = "/.netlify/functions/ask_ai"
-  status = 200
+  status = 200 # 200 status means this is a rewrite (proxy)
