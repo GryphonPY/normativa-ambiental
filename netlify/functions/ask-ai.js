@@ -68,7 +68,7 @@ exports.handler = async (event) => {
         - Prioriza documentos oficiales, leyes, reglamentos y normas
     </search_strategy>
     <response_format>
-        1. **Resumen**: Respuesta directa y concisa (2-3 líneas)
+        1. **Resumen Ejecutivo**: Respuesta directa y concisa (2-3 líneas)
         2. **Detalles Normativos**: 
            * Normativa aplicable
            * Requisitos específicos
@@ -111,15 +111,60 @@ exports.handler = async (event) => {
     // Get grounding metadata if available
     const groundingMetadata = response.candidates?.[0]?.groundingMetadata;
     
-    // Log grounding info for debugging
+    // Function to add citations to the text
+    function addCitations(responseText, metadata) {
+      if (!metadata?.groundingSupports || !metadata?.groundingChunks) {
+        return responseText;
+      }
+
+      let text = responseText;
+      const supports = metadata.groundingSupports;
+      const chunks = metadata.groundingChunks;
+
+      // Sort supports by endIndex in descending order to avoid shifting issues
+      const sortedSupports = [...supports].sort(
+        (a, b) => (b.segment?.endIndex ?? 0) - (a.segment?.endIndex ?? 0),
+      );
+
+      for (const support of sortedSupports) {
+        const endIndex = support.segment?.endIndex;
+        if (endIndex === undefined || !support.groundingChunkIndices?.length) {
+          continue;
+        }
+
+        const citationLinks = support.groundingChunkIndices
+          .map(i => {
+            const chunk = chunks[i];
+            const uri = chunk?.web?.uri;
+            const title = chunk?.web?.title || `Fuente ${i + 1}`;
+            if (uri) {
+              return `[${title}](${uri})`;
+            }
+            return null;
+          })
+          .filter(Boolean);
+
+        if (citationLinks.length > 0) {
+          const citationString = ` (${citationLinks.join(", ")})`;
+          text = text.slice(0, endIndex) + citationString + text.slice(endIndex);
+        }
+      }
+
+      return text;
+    }
+
+    // Add citations if grounding metadata is available
+    let finalText = text;
     if (groundingMetadata) {
+      finalText = addCitations(text, groundingMetadata);
       console.log("Grounding activated. Search queries:", groundingMetadata.webSearchQueries);
+      console.log("Sources found:", groundingMetadata.groundingChunks?.length || 0);
     } else {
       console.log("Response generated from model's knowledge base");
     }
 
     // Basic validation of response
-    if (!text || text.trim().length === 0) {
+    if (!finalText || finalText.trim().length === 0) {
       throw new Error("Empty response from AI model");
     }
 
@@ -133,8 +178,9 @@ exports.handler = async (event) => {
         "Access-Control-Allow-Headers": "Content-Type",
       },
       body: JSON.stringify({ 
-        response: text,
+        response: finalText, // Usar el texto con citas
         grounded: !!groundingMetadata,
+        sources_found: groundingMetadata?.groundingChunks?.length || 0,
         timestamp: new Date().toISOString()
       }),
     };
