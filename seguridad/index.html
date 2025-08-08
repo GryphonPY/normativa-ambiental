@@ -1,0 +1,2008 @@
+<!DOCTYPE html><html lang="es"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Marco Normativo Ambiental Mexicano 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        sage: '#9CAF88',
+                        forest: '#2D4A2B',
+                        stone: '#8B7355',
+                        earth: '#D4C4A8',
+                        mist: '#F5F7F4',
+                        charcoal: '#2C2C2C'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+              /* Estilos para la respuesta del Asistente IA */
+        #ai-response-container h3 {
+            font-size: 1.25rem; /* 20px */
+            font-weight: 600;
+            color: #2D4A2B; /* Color 'forest' */
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            border-bottom: 2px solid #9CAF88; /* Color 'sage' */
+            padding-bottom: 0.25rem;
+        }
+
+        #ai-response-container ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        #ai-response-container li {
+            margin-bottom: 0.5rem;
+        }
+
+        #ai-response-container a {
+            color: #3b82f6; /* Un azul vibrante para los links */
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        #ai-response-container a:hover {
+            color: #1d4ed8; /* Un azul más oscuro al pasar el ratón */
+        }
+        body {
+            overflow-x: hidden;
+        }
+        html, body {
+            overflow-x: hidden;
+        }
+        .gradient-overlay {
+            background: linear-gradient(135deg, rgba(45, 74, 43, 0.8) 0%, rgba(156, 175, 136, 0.6) 100%);
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .toc-fixed {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            width: 280px;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+            z-index: 50;
+        }
+        .content-with-toc {
+            margin-left: 320px;
+        }
+        @media (max-width: 1279px) {
+            .toc-fixed {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+                width: 80%;
+                max-width: 320px;
+                height: 100vh;
+                top: 0;
+                left: 0;
+                border-radius: 0;
+                box-shadow: 0 0 25px rgba(0,0,0,0.2);
+                overflow-y: auto;
+            }
+            .toc-fixed.is-open {
+                transform: translateX(0);
+            }
+            .content-with-toc {
+                margin-left: 0;
+            }
+            #close-menu-btn {
+                display: block;
+            }
+        }
+        .citation-link {
+            color: #2D4A2B;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted #2D4A2B;
+        }
+        .citation-link:hover {
+            background-color: rgba(156, 175, 136, 0.2);
+        }
+        
+        /* Mermaid Chart Styles */
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            min-height: 300px;
+            max-height: 800px;
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mermaid-container .mermaid {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            cursor: grab;
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .mermaid-container .mermaid svg {
+            max-width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .mermaid-container .mermaid:active {
+            cursor: grabbing;
+        }
+
+        .mermaid-container.zoomed .mermaid {
+            height: 100%;
+            width: 100%;
+            cursor: grab;
+        }
+
+        .mermaid-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .mermaid-control-btn {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #374151;
+            font-size: 14px;
+            min-width: 36px;
+            height: 36px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mermaid-control-btn:hover {
+            background: #f8fafc;
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: translateY(-1px);
+        }
+
+        .mermaid-control-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Custom Mermaid Theme for Better Contrast */
+        .mermaid .node rect,
+        .mermaid .node circle,
+        .mermaid .node ellipse,
+        .mermaid .node polygon {
+            stroke: #2D4A2B !important;
+            stroke-width: 2px !important;
+        }
+        
+        .mermaid .node .label {
+            color: #2D4A2B !important;
+            font-weight: 600 !important;
+            font-size: 14px !important;
+        }
+        
+        .mermaid .edgePath .path {
+            stroke: #8B7355 !important;
+            stroke-width: 2px !important;
+        }
+        
+        .mermaid .arrowheadPath {
+            fill: #8B7355 !important;
+        }
+        
+        /* Enhanced node colors with better contrast */
+        .mermaid .node.level0 rect,
+        .mermaid .node.level0 circle,
+        .mermaid .node.level0 polygon {
+            fill: #2D4A2B !important;
+        }
+        
+        .mermaid .node.level0 .label {
+            color: #FFFFFF !important;
+            font-weight: 700 !important;
+        }
+        
+        .mermaid .node.level1 rect,
+        .mermaid .node.level1 circle,
+        .mermaid .node.level1 polygon {
+            fill: #9CAF88 !important;
+        }
+        
+        .mermaid .node.level1 .label {
+            color: #2D4A2B !important;
+            font-weight: 600 !important;
+        }
+        
+        .mermaid .node.level2 rect,
+        .mermaid .node.level2 circle,
+        .mermaid .node.level2 polygon {
+            fill: #D4C4A8 !important;
+        }
+        
+        .mermaid .node.level2 .label {
+            color: #2D4A2B !important;
+            font-weight: 600 !important;
+        }
+        
+        /* Timeline specific styling */
+        .mermaid .timeline-section {
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        /* Responsive adjustments for mermaid controls */
+        @media (max-width: 1024px) {
+            /* Controls are now always visible for better mobile experience */
+            .mermaid-controls {
+                top: auto;
+                bottom: 15px;
+                right: 15px;
+            }
+            .mermaid .graph-statement {
+                flex-direction: column !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mermaid-container .mermaid {
+                transform: scale(0.8);
+            }
+        }
+    </style>
+    <script type="module">
+      // IMPORTANT: You need to get your own API key from Google AI Studio.
+      // Go to https://aistudio.google.com/app/apikey to create one.
+      // Replace "YOUR_API_KEY" with your actual key.
+      const API_KEY = "AIzaSyCKYf3Qq6j0Lfve3_0G3vtZHIN-zm8-U-w"; 
+
+      // Do not edit the code below this line
+      try {
+        const { GoogleGenerativeAI } = await import("https://esm.run/@google/generative-ai");
+        if (API_KEY.startsWith("YOUR_API" + "_KEY")) {
+            console.warn("AI Assistant is not configured. Please replace 'YOUR_API_KEY' with your actual Google AI Studio API key in the <script> tag in the <head> of the HTML file.");
+            window.genAI = null;
+        } else {
+            const genAI = new GoogleGenerativeAI(API_KEY);
+            window.genAI = genAI;
+        }
+      } catch(e) {
+        console.error("Could not load the Google Generative AI SDK. The AI Assistant will not work.", e);
+        window.genAI = null;
+      }
+    </script>
+  </head>
+
+  <body class="bg-mist font-sans text-charcoal leading-relaxed">
+
+    <!-- Fixed Table of Contents -->
+    <nav id="table-of-contents" class="toc-fixed bg-white/95 backdrop-blur-sm rounded-xl shadow-lg border border-sage/30 p-6">
+      <button id="close-menu-btn" class="hidden absolute top-4 right-4 text-charcoal hover:text-forest xl:hidden">
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+      <h3 class="font-serif font-semibold text-lg text-forest mb-4 border-b border-sage/30 pb-2">
+        <i class="fas fa-list-ul mr-2"></i>Contenido
+      </h3>
+      <ul class="space-y-2 text-sm">
+        <li>
+          <a href="#marco-legal" class="block text-charcoal hover:text-forest transition-colors py-1">1. Marco Legal Federal</a>
+        </li>
+        <li>
+          <a href="#noms-sector" class="block text-charcoal hover:text-forest transition-colors py-1">2. NOMs por Sector</a>
+        </li>
+        <li>
+          <a href="#reglamentos" class="block text-charcoal hover:text-forest transition-colors py-1">3. Reglamentos y Acuerdos</a>
+        </li>
+        <li>
+          <a href="#sectores" class="block text-charcoal hover:text-forest transition-colors py-1">4. Consideraciones por Sector</a>
+        </li>
+        <li>
+          <a href="#transicion" class="block text-charcoal hover:text-forest transition-colors py-1">5. Transición Ecológica</a>
+        </li>
+         <li>
+          <a href="#asistente-ia" class="block text-charcoal hover:text-forest transition-colors py-1">6. Asistente IA</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content-with-toc">
+
+      <!-- Hero Section -->
+      <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+          <img src="https://kimi-web-img.moonshot.cn/img/i0.wp.com/767471bfcf8c2c632fa3cb9ae81cd90f050d445b.jpg" alt="Panorámica de un bosque con montañas en México" class="w-full h-full object-cover" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+          <div class="gradient-overlay absolute inset-0"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+          <!-- Hero Content -->
+          <div class="text-white">
+            <div class="mb-6">
+            
+            </div>
+            <h1 class="font-serif text-4xl md:text-5xl lg:text-7xl font-bold mb-6 text-shadow">
+              <em class="text-sage">Marco Normativo</em>
+              <br/>
+              Ambiental Mexicano
+            </h1>
+            <p class="text-lg md:text-xl lg:text-2xl font-light mb-8 text-shadow opacity-90">
+              Un análisis exhaustivo de las leyes, NOMs y regulaciones que rigen la protección ambiental en México
+            </p>
+          </div>
+
+          <!-- Key Highlights Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20">
+              <div class="text-sage text-3xl mb-3">
+                <i class="fas fa-leaf"></i>
+              </div>
+              <h3 class="font-serif font-semibold text-white mb-2">Economía Circular</h3>
+              <p class="text-white/80 text-sm">Transición hacia modelos de producción sustentables</p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+              <div class="text-sage text-3xl mb-3">
+                <i class="fas fa-car-battery"></i>
+              </div>
+              <h3 class="font-serif font-semibold text-white mb-2">Movilidad Eléctrica</h3>
+              <p class="text-white/80 text-sm">Impulso a la transición energética en transporte</p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+              <div class="text-sage text-3xl mb-3">
+                <i class="fas fa-industry"></i>
+              </div>
+              <h3 class="font-serif font-semibold text-white mb-2">Control Industrial</h3>
+              <p class="text-white/80 text-sm">Reforzamiento de estándares de emisiones</p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+              <div class="text-sage text-3xl mb-3">
+                <i class="fas fa-balance-scale"></i>
+              </div>
+              <h3 class="font-serif font-semibold text-white mb-2">Responsabilidad Ambiental</h3>
+              <p class="text-white/80 text-sm">Marco legal fortalecido para la reparación de daños</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Executive Summary -->
+      <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+          <div class="bg-sage/10 border-l-4 border-sage p-8 rounded-r-lg">
+            <h2 class="font-serif text-2xl font-semibold text-forest mb-4">Resumen</h2>
+            <p class="text-lg leading-relaxed text-charcoal">
+              La normativa ambiental mexicana actualizada al 2025 representa un <strong>cambio de paradigma</strong> hacia la prevención y control integral de la contaminación. Con reformas clave a leyes como la LGEEPA, LGPGIR y la Ley de Minería, el marco legal se ha fortalecido para impulsar la <strong>transición hacia una economía circular</strong>, la eficiencia energética y la movilidad eléctrica, especialmente en el sector automotriz.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 1: Marco Legal Federal -->
+      <section id="marco-legal" class="py-16 bg-mist">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="mb-12">
+            <h2 class="font-serif text-4xl font-bold text-forest mb-6">1. Marco Legal Ambiental Federal</h2>
+            <p class="text-lg text-charcoal/80 leading-relaxed">
+              El marco legal ambiental mexicano se sustenta en leyes generales que establecen las bases para la protección, preservación y restauración del equilibrio ecológico. Estas leyes son de aplicación en todo el territorio nacional y constituyen el fundamento para las NOMs y otros instrumentos regulatorios.
+            </p>
+          </div>
+
+          <!-- Legal Framework Diagram -->
+          <div class="bg-white rounded-xl shadow-lg p-8 mb-12">
+            <h3 class="font-serif text-xl font-semibold text-forest mb-6">Estructura del Marco Legal Ambiental</h3>
+            <div class="mermaid-container">
+              <div class="mermaid-controls">
+                <button class="mermaid-control-btn zoom-in" title="Acercar">
+                  <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="mermaid-control-btn zoom-out" title="Alejar">
+                  <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="mermaid-control-btn reset-zoom" title="Restablecer">
+                  <i class="fas fa-expand-arrows-alt"></i>
+                </button>
+                <button class="mermaid-control-btn fullscreen" title="Pantalla completa">
+                  <i class="fas fa-expand"></i>
+                </button>
+              </div>
+              <div class="mermaid">
+                graph LR
+                A["Constitución Política de México"] --> B["Leyes Generales"]
+                B --> C["LGEEPA"]
+                B --> D["LGPGIR"]
+                B --> E["LFRA"]
+                B --> F["Ley de Aguas"]
+                B --> G["LGCC"]
+
+                C --> H["Normas Oficiales Mexicanas (NOMs)"]
+                D --> H
+                E --> H
+                F --> H
+                G --> H
+
+                H --> I["Reglamentos y Acuerdos"]
+
+                style A fill:#2D4A2B,stroke:#2D4A2B,stroke-width:3px,color:#fff
+                style B fill:#9CAF88,stroke:#2D4A2B,stroke-width:2px,color:#2D4A2B
+                style C fill:#D4C4A8,stroke:#8B7355,stroke-width:2px,color:#2D4A2B
+                style D fill:#D4C4A8,stroke:#8B7355,stroke-width:2px,color:#2D4A2B
+                style E fill:#D4C4A8,stroke:#8B7355,stroke-width:2px,color:#2D4A2B
+                style F fill:#D4C4A8,stroke:#8B7355,stroke-width:2px,color:#2D4A2B
+                style G fill:#D4C4A8,stroke:#8B7355,stroke-width:2px,color:#2D4A2B
+                style H fill:#9CAF88,stroke:#2D4A2B,stroke-width:2px,color:#2D4A2B
+                style I fill:#2D4A2B,stroke:#2D4A2B,stroke-width:3px,color:#fff
+              </div>
+            </div>
+          </div>
+
+          <!-- Legal Framework Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- LGEEPA -->
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-sage">
+              <div class="flex items-center mb-4">
+                <div class="bg-sage/20 rounded-full p-3 mr-4">
+                  <i class="fas fa-shield-alt text-sage text-xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-forest">LGEEPA</h3>
+              </div>
+              <p class="text-charcoal/80 mb-4">
+                La piedra angular del marco legal ambiental es la LGEEPA, la cual establece los principios para la prevención y control de la contaminación industrial en México.
+                <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/LGEEPA.pdf" class="citation-link ml-1" target="_blank">[1]</a>
+              </p>
+              <div class="text-sm text-sage font-medium">
+                <i class="fas fa-external-link-alt mr-1"></i>
+                Evaluación de Impacto Ambiental
+              </div>
+            </div>
+
+            <!-- LGPGIR -->
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-stone">
+              <div class="flex items-center mb-4">
+                <div class="bg-stone/20 rounded-full p-3 mr-4">
+                  <i class="fas fa-recycle text-stone text-xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-forest">LGPGIR</h3>
+              </div>
+              <p class="text-charcoal/80 mb-4">
+                La LGPGIR establece, desde su artículo 1, los principios de prevención, valorización, reciclaje y responsabilidad compartida en la gestión de residuos, lo que sienta las bases legales para la economía circular en México
+                <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/LGPGIR.pdf" class="citation-link ml-1" target="_blank">[2]</a>
+              </p>
+              <div class="text-sm text-stone font-medium">
+                <i class="fas fa-external-link-alt mr-1"></i>
+                Gestión Integral de Residuos
+              </div>
+            </div>
+
+            <!-- LFRA -->
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-forest">
+              <div class="flex items-center mb-4">
+                <div class="bg-forest/20 rounded-full p-3 mr-4">
+                  <i class="fas fa-gavel text-forest text-xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-forest">LFRA</h3>
+              </div>
+              <p class="text-charcoal/80 mb-4">
+                Establece responsabilidad ambiental objetiva por daños al medio ambiente, con mecanismos de reparación y compensación.
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/759538/Reglamento_Interior_Semarnat_27_07_22.pdf" class="citation-link ml-1" target="_blank">[3]</a>
+              </p>
+              <div class="text-sm text-forest font-medium">
+                <i class="fas fa-external-link-alt mr-1"></i>
+                Responsabilidad Ambiental
+              </div>
+            </div>
+
+            <!-- Ley de Aguas -->
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-blue-500">
+              <div class="flex items-center mb-4">
+                <div class="bg-blue-100 rounded-full p-3 mr-4">
+                  <i class="fas fa-tint text-blue-600 text-xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-forest">Ley de Aguas Nacionales</h3>
+              </div>
+              <p class="text-charcoal/80 mb-4">
+                Regula el uso, aprovechamiento y conservación de aguas nacionales, garantizando su disponibilidad y calidad.
+                <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/LAN.pdf" class="citation-link ml-1" target="_blank">[4]</a>
+              </p>
+              <div class="text-sm text-blue-600 font-medium">
+                <i class="fas fa-external-link-alt mr-1"></i>
+                Gestión Hídrica
+              </div>
+            </div>
+
+            <!-- LGCC -->
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-green-500">
+              <div class="flex items-center mb-4">
+                <div class="bg-green-100 rounded-full p-3 mr-4">
+                  <i class="fas fa-globe text-green-600 text-xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-forest">Ley de Cambio Climático</h3>
+              </div>
+              <p class="text-charcoal/80 mb-4">
+                Establece metas de reducción de GEI del 22% para 2025 y promueve la transición hacia una economía baja en carbono.
+                <a href="https://www.gob.mx/semarnat/documentos/programa-especial-de-cambio-climatico-2021-2024" class="citation-link ml-1" target="_blank">[5]</a>
+              </p>
+              <div class="text-sm text-green-600 font-medium">
+                <i class="fas fa-external-link-alt mr-1"></i>
+                Acción Climática
+              </div>
+            </div>
+
+            <!-- Ley de Minería -->
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-amber-500">
+              <div class="flex items-center mb-4">
+                <div class="bg-amber-100 rounded-full p-3 mr-4">
+                  <i class="fas fa-mountain text-amber-600 text-xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-forest">Ley de Minería</h3>
+              </div>
+              <p class="text-charcoal/80 mb-4">
+                Reformada en 2025 con cambios significativos: concesiones por licitación, prioridad del agua para consumo humano y planes de cierre ambiental.
+                <a href="https://www.gob.mx/se/prensa/reforma-integral-a-la-actividad-minera" class="citation-link ml-1" target="_blank">[6]</a>
+              </p>
+              <div class="text-sm text-amber-600 font-medium">
+                <i class="fas fa-external-link-alt mr-1"></i>
+                Minería Sostenible
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: NOMs by Sector -->
+      <section id="noms-sector" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="mb-12">
+            <h2 class="font-serif text-4xl font-bold text-forest mb-6">2. Normas Oficiales Mexicanas (NOMs) por Sector</h2>
+            <p class="text-lg text-charcoal/80 leading-relaxed">
+              Las NOMs son regulaciones técnicas de carácter obligatorio que establecen especificaciones, requisitos y métodos aplicables a productos, procesos y servicios para proteger el medio ambiente y la salud pública.
+            </p>
+          </div>
+
+          <!-- Sector Tabs -->
+          <div class="mb-8">
+            <div class="flex flex-wrap border-b border-sage/30">
+              <button class="noms-tab active px-4 md:px-6 py-3 font-medium text-forest border-b-2 border-sage" data-sector="aire">
+                <i class="fas fa-wind mr-2"></i>Aire y Emisiones
+              </button>
+              <button class="noms-tab px-4 md:px-6 py-3 font-medium text-charcoal/70" data-sector="agua">
+                <i class="fas fa-tint mr-2"></i>Agua
+              </button>
+              <button class="noms-tab px-4 md:px-6 py-3 font-medium text-charcoal/70" data-sector="residuos">
+                <i class="fas fa-trash-alt mr-2"></i>Residuos
+              </button>
+              <button class="noms-tab px-4 md:px-6 py-3 font-medium text-charcoal/70" data-sector="automotriz">
+                <i class="fas fa-car mr-2"></i>Automotriz
+              </button>
+            </div>
+          </div>
+
+          <!-- NOMs Content -->
+          <div class="noms-content">
+            <!-- Air and Emissions -->
+            <div id="aire" class="noms-panel active">
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-sage">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-020-SSA1-2014</h4>
+                    <p class="text-charcoal/80 mb-2">Establece valores límite de concentración de ozono, partículas PM10, CO, SO₂ y NO₂ en aire ambiente.</p>
+                    <div class="text-sm text-sage font-medium">
+                      <a href="hhttps://www.dof.gob.mx/nota_detalle.php?codigo=5356801&fecha=19%2F08%2F2014#gsc.tab=0" class="citation-link" target="_blank">[7]</a> Normas de calidad del aire urbano
+                    </div>
+                  </div>
+
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-stone">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-085-SEMARNAT-2011</h4>
+                    <p class="text-charcoal/80 mb-2">Límites máximos permisibles de emisión de partículas, SOx y NOx para equipos de combustión industrial.</p>
+                    <div class="text-sm text-stone font-medium">
+                      <a href="https://www.dof.gob.mx/normasOficiales/4632/semarnat/semarnat.htm" class="citation-link" target="_blank">[8]</a> Calderas y hornos industriales
+                    </div>
+                  </div>
+
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-forest">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-163-SEMARNAT-SCFI-2023</h4>
+                    <p class="text-charcoal/80 mb-2">Estándares de eficiencia energética y límites de emisiones de CO₂ para vehículos nuevos (modelos 2028+).</p>
+                    <div class="text-sm text-forest font-medium">
+                      <a href="https://www.dof.gob.mx/nota_detalle_popup.php?codigo=5713555" class="citation-link" target="_blank">[9]</a> Eficiencia vehicular
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-blue-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-035-SEMARNAT-1993</h4>
+                    <p class="text-charcoal/80 mb-2">Límites para emisiones de partículas y compuestos orgánicos volátiles de fuentes fijas industriales.</p>
+                    <div class="text-sm text-blue-600 font-medium">
+                      <a href="http://www.aire.cdmx.gob.mx/descargas/monitoreo/normatividad/NOM-035-SEMARNAT-1993.pdf" class="citation-link" target="_blank">[10]</a> Control de emisiones industriales
+                    </div>
+                  </div>
+
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-amber-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-040-SEMARNAT-2002 (mod. 2025)</h4>
+                    <p class="text-charcoal/80 mb-2">Actualización de límites de emisión para fabricación de cemento hidráulico, incluyendo metales pesados y dioxinas.</p>
+                    <div class="text-sm text-amber-600 font-medium">
+                      <a href="https://www.gob.mx/cms/uploads/attachment/file/998811/PNIC_2025_DOF_SEMARNAT-CONAGUA.pdf" class="citation-link" target="_blank">[11]</a> Industria cementera
+                    </div>
+                  </div>
+
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-purple-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">PROY-NOM-167-SEMARNAT-2023</h4>
+                    <p class="text-charcoal/80 mb-2">Proyecto para modificar límites de emisión vehiculares en CDMX y estados aledaños (conclusión estimada 2025).</p>
+                    <div class="text-sm text-purple-600 font-medium">
+                      <a href="https://www.gob.mx/cms/uploads/attachment/file/998811/PNIC_2025_DOF_SEMARNAT-CONAGUA.pdf" class="citation-link" target="_blank">[12]</a> Zona Metropolitana
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Water -->
+            <div id="agua" class="noms-panel hidden">
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-blue-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-001-SEMARNAT-2021</h4>
+                    <p class="text-charcoal/80 mb-2">Límites máximos permisibles de contaminantes en descargas de aguas residuales a cuerpos nacionales.</p>
+                    <div class="text-sm text-blue-600 font-medium">
+                      <a href="https://www.dof.gob.mx/nota_detalle.php?codigo=5645374&fecha=11%2F03%2F2022#gsc.tab=0" class="citation-link" target="_blank">[13]</a> Descargas industriales
+                    </div>
+                  </div>
+
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-cyan-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-002-SEMARNAT-1996</h4>
+                    <p class="text-charcoal/80 mb-2">Límites de contaminantes en descargas a sistemas de alcantarillado urbano o municipal.</p>
+                    <div class="text-sm text-cyan-600 font-medium">
+                      <a href="https://platiica.economia.gob.mx/normalizacion/nom-002-semarnat-1996/  " class="citation-link" target="_blank">[14]</a> Descargas municipales
+                    </div>
+                  </div>
+
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-teal-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-003-SEMARNAT-1997</h4>
+                    <p class="text-charcoal/80 mb-2">Límites para aguas residuales tratadas que se reúsan en servicios públicos.</p>
+                    <div class="text-sm text-teal-600 font-medium">
+                      <a href="https://www.dof.gob.mx/nota_detalle.php?codigo=4893449&fecha=21%2F09%2F1998#gsc.tab=0" class="citation-link" target="_blank">[15]</a> Reúso de agua
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-indigo-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-011-CONAGUA-2015</h4>
+                    <p class="text-charcoal/80 mb-2">Especificaciones para determinar disponibilidad media anual de aguas nacionales.</p>
+                    <div class="text-sm text-indigo-600 font-medium">
+                      <a href="https://www.dof.gob.mx/nota_detalle.php?codigo=5387027&fecha=27%2F03%2F2015#gsc.tab=0" class="citation-link" target="_blank">[16]</a> Gestión hídrica
+                    </div>
+                  </div>
+
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-green-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-127-SSA1-2021</h4>
+                    <p class="text-charcoal/80 mb-2">Límites permisibles de calidad bacteriológica, química y física del agua para consumo humano.</p>
+                    <div class="text-sm text-green-600 font-medium">
+                      <a href="https://www.dof.gob.mx/nota_detalle_popup.php?codigo=5650705" class="citation-link" target="_blank">[17]</a> Agua potable
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Waste -->
+            <div id="residuos" class="noms-panel hidden">
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-red-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-052-SEMARNAT-2005</h4>
+                    <p class="text-charcoal/80 mb-2">Características e identificación de residuos peligrosos (toxicidad, inflamabilidad, corrosividad).</p>
+                    <div class="text-sm text-red-600 font-medium">
+                      <a href="https://www.dof.gob.mx/normasOficiales/1055/SEMARNA/SEMARNA.htm" class="citation-link" target="_blank">[18]</a> Residuos peligrosos
+                    </div>
+                  </div>
+
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-orange-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-161-SEMARNAT-2011</h4>
+                    <p class="text-charcoal/80 mb-2">Criterios para clasificar Residuos de Manejo Especial (RME) y determinar planes de manejo.</p>
+                    <div class="text-sm text-orange-600 font-medium">
+                      <a href="https://www.dof.gob.mx/nota_detalle.php?codigo=5286505&fecha=01%2F02%2F2013" class="citation-link" target="_blank">[19]</a> Residuos especiales
+                    </div>
+                  </div>
+
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-pink-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-087-SEMARNAT-SSA1-2002</h4>
+                    <p class="text-charcoal/80 mb-2">Criterios para manejo de residuos peligrosos biológico-infecciosos (RPBI) en establecimientos de salud.</p>
+                    <div class="text-sm text-pink-600 font-medium">
+                      <a href="https://www.cndh.org.mx/sites/default/files/doc/Programas/VIH/Leyes%20y%20normas%20y%20reglamentos/Norma%20Oficial%20Mexicana/NOM-087-SEMARNAT-SSA1-2002%20Proteccion%20ambiental-salud.pdf" class="citation-link" target="_blank">[20]</a> Residuos médicos
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-gray-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-083-SEMARNAT-2003</h4>
+                    <p class="text-charcoal/80 mb-2">Especificaciones para sitios de disposición final de residuos sólidos urbanos (rellenos sanitarios).</p>
+                    <div class="text-sm text-gray-600 font-medium">
+                      <a href="https://biblioteca.semarnat.gob.mx/janium/Documentos/Ciga/agenda/PPD02/nom-083.pdf" class="citation-link" target="_blank">[21]</a> Rellenos sanitarios
+                    </div>
+                  </div>
+
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-brown-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-147-SEMARNAT/SSA1-2004</h4>
+                    <p class="text-charcoal/80 mb-2">Criterios para remediación de suelos contaminados por hidrocarburos, arsénico y plomo.</p>
+                    <div class="text-sm text-brown-600 font-medium">
+                      <a href="https://www.gob.mx/cms/uploads/attachment/file/135331/48.-_NORMA_OFICIAL_MEXICANA_NOM-147-SEMARNAT-SSA1-2004.pdf" class="citation-link" target="_blank">[22]</a> Remediación de suelos
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Automotive -->
+            <div id="automotriz" class="noms-panel hidden">
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-green-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-163-SEMARNAT-SCFI-2023</h4>
+                    <p class="text-charcoal/80 mb-2">Estándares de eficiencia energética y emisiones de CO₂ para vehículos nuevos (modelos 2025-2027).</p>
+                    <div class="text-sm text-green-600 font-medium">
+                      <a href="https://platiica.economia.gob.mx/wp-content/uploads/sites/2/PDF_Normas_Publicas/NOM-163-SEMARNAT-SCFI-2023.pdf" class="citation-link" target="_blank">[23]</a> Eficiencia vehicular
+                    </div>
+                  </div>
+
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-blue-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-041-SEMARNAT-2015</h4>
+                    <p class="text-charcoal/80 mb-2">Límites de emisiones para vehículos a gasolina en circulación (CO, HC, NOx).</p>
+                    <div class="text-sm text-blue-600 font-medium">
+                      <a href="https://www.gob.mx/profepa/documentos/norma-oficial-mexicana-nom-041-semarnat-2015" class="citation-link" target="_blank">[24]</a> Verificación vehicular
+                    </div>
+                  </div>
+
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-purple-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-044-SEMARNAT-2017</h4>
+                    <p class="text-charcoal/80 mb-2">Emisiones de motores nuevos a diésel para vehículos pesados (camiones y autobuses).</p>
+                    <div class="text-sm text-purple-600 font-medium">
+                      <a href="https://www.cmic.org.mx/sectores/medioambiente/MarcoLegal/normas/NOM-044-SEMARNAT-2017.pdf" class="citation-link" target="_blank">[25]</a> Motores diésel
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-amber-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-042-SEMARNAT-2003</h4>
+                    <p class="text-charcoal/80 mb-2">Límites de emisiones para vehículos ligeros nuevos (en proceso de modificación 2025).</p>
+                    <div class="text-sm text-amber-600 font-medium">
+                      <a href="https://www.gob.mx/cms/uploads/attachment/file/998811/PNIC_2025_DOF_SEMARNAT-CONAGUA.pdf" class="citation-link" target="_blank">[26]</a> Vehículos ligeros
+                    </div>
+                  </div>
+
+                  <div class="bg-mist rounded-lg p-6 border-l-4 border-red-500">
+                    <h4 class="font-serif font-semibold text-forest mb-2">NOM-194-SCFI-2015</h4>
+                    <p class="text-charcoal/80 mb-2">Requisitos de seguridad esencial en vehículos ligeros nuevos.</p>
+                    <div class="text-sm text-red-600 font-medium">
+                      <a href="https://www.dof.gob.mx/normasOficiales/5999/seeco10a13_C/seeco10a13_C.html" class="citation-link" target="_blank">[27]</a> Seguridad vehicular
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3: Reglamentos y Acuerdos -->
+      <section id="reglamentos" class="py-16 bg-mist">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="mb-12">
+            <h2 class="font-serif text-4xl font-bold text-forest mb-6">3. Reglamentos y Acuerdos Recientes</h2>
+            <p class="text-lg text-charcoal/80 leading-relaxed">
+              Además de las leyes y NOMs, la normativa ambiental se complementa con reglamentos, acuerdos y medidas administrativas emitidas por las autoridades competentes, principalmente la SEMARNAT.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Administrative Measures -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+              <div class="flex items-center mb-6">
+                <div class="bg-sage/20 rounded-full p-4 mr-4">
+                  <i class="fas fa-file-contract text-sage text-2xl"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-semibold text-forest">Acuerdos SEMARNAT 2025</h3>
+              </div>
+
+              <div class="space-y-4">
+                <div class="border-l-4 border-sage pl-4">
+                  <h4 class="font-semibold text-forest mb-2">Simplificación Administrativa</h4>
+                  <p class="text-charcoal/80 text-sm mb-2">
+                    Acuerdo del 24 de abril de 2025 que modifica formatos de trámites ambientales y habilita herramientas tecnológicas.
+                    <a href="https://www.dof.gob.mx/nota_detalle.php?codigo=5755723&fecha=24/04/2025#gsc.tab=0" class="citation-link ml-1" target="_blank">[28]</a>
+                  </p>
+                  <ul class="text-xs text-charcoal/70 space-y-1">
+                    <li>• Aviso de Combustión a Cielo Abierto</li>
+                    <li>• Autorización de aprovechamiento forestal</li>
+                    <li>• Registro de generadores de residuos peligrosos</li>
+                    <li>• Propuestas de remediación ambiental</li>
+                  </ul>
+                </div>
+
+                <div class="border-l-4 border-stone pl-4">
+                  <h4 class="font-semibold text-forest mb-2">Medidas PROFEPA</h4>
+                  <p class="text-charcoal/80 text-sm">
+                    Acuerdo del 27 de mayo de 2025 para simplificar procedimientos ante la Procuraduría Federal de Protección al Ambiente.
+                    <a href="https://www.dof.gob.mx/nota_detalle.php?codigo=5758327&fecha=27/05/2025" class="citation-link ml-1" target="_blank">[29]</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Regulatory Updates -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+              <div class="flex items-center mb-6">
+                <div class="bg-forest/20 rounded-full p-4 mr-4">
+                  <i class="fas fa-sync-alt text-forest text-2xl"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-semibold text-forest">Actualizaciones Normativas</h3>
+              </div>
+
+              <div class="space-y-4">
+                <div class="border-l-4 border-forest pl-4">
+                  <h4 class="font-semibold text-forest mb-2">Programa Nacional de Infraestructura</h4>
+                  <p class="text-charcoal/80 text-sm mb-2">
+                    Publicado el 17 de febrero de 2025, detalla proyectos de modificación de NOMs ambientales clave.
+                    <a href="https://platiica.economia.gob.mx/sistema-nacional-de-infraestructura-de-la-calidad/wp-content/uploads/sites/7/2025/02/PNIC%202025.pdf" class="citation-link ml-1" target="_blank">[30]</a>
+                  </p>
+                </div>
+
+                <div class="border-l-4 border-blue-500 pl-4">
+                  <h4 class="font-semibold text-forest mb-2">Reforma Integral Minera</h4>
+                  <p class="text-charcoal/80 text-sm">
+                    Reformas a la Ley de Minería establecen prioridad del agua para consumo humano y planes de cierre ambiental obligatorios.
+                    <a href="https://www.gob.mx/se/prensa/reforma-integral-a-la-actividad-minera" class="citation-link ml-1" target="_blank">[31]</a>
+                  </p>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                  <h4 class="font-semibold text-forest mb-2">Reforma Energética 2025</h4>
+                  <p class="text-charcoal/80 text-sm">
+                    Promulgada el 18 de marzo de 2025, con énfasis en sustentabilidad y energías renovables.
+                    <a href="https://elmundodelabogado.com/reforma-energetica-2025-mexico/" class="citation-link ml-1" target="_blank">[32]</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Sector-Specific Considerations -->
+      <section id="sectores" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+          <div class="mb-12">
+            <h2 class="font-serif text-4xl font-bold text-forest mb-6">4. Consideraciones por Sector Específico</h2>
+            <p class="text-lg text-charcoal/80 leading-relaxed">
+              La aplicación de la normativa ambiental varía según las características y los impactos potenciales de cada sector económico. A continuación, se presentan consideraciones específicas para los sectores más relevantes.
+            </p>
+          </div>
+
+          <!-- Sector Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Automotive Sector -->
+            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl shadow-lg p-6 border border-green-200">
+              <div class="flex items-center mb-4">
+                <div class="bg-green-500 rounded-full p-3 mr-4">
+                  <i class="fas fa-car text-white text-xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-forest">Sector Automotriz</h3>
+              </div>
+              <div class="space-y-3 text-sm">
+                <div class="flex items-start">
+                  <i class="fas fa-leaf text-green-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Reducción de emisiones y promoción de vehículos eléctricos</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-battery-half text-green-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Meta: 50% de ventas de vehículos eléctricos/híbridos para 2030</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-chart-line text-green-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Actualización de NOM-163 y NOM-042 para modelos 2028+</span>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-green-200">
+                <a href="https://auteco.mx/2025-el-ano-en-que-las-flotillas-electricas-se-convierten-en-la-nueva-normalidad-empresarial/" class="citation-link text-xs" target="_blank">[33]</a>
+              </div>
+            </div>
+
+            <!-- Industrial Sector -->
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg p-6 border border-blue-200">
+              <div class="flex items-center mb-4">
+                <div class="bg-blue-500 rounded-full p-3 mr-4">
+                  <i class="fas fa-industry text-white text-xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-forest">Sector Industrial</h3>
+              </div>
+              <div class="space-y-3 text-sm">
+                <div class="flex items-start">
+                  <i class="fas fa-clipboard-check text-blue-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Cumplimiento normativo reforzado en LGEEPA</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-recycle text-blue-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Gestión integral de residuos y economía circular</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-exclamation-triangle text-blue-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Responsabilidad ambiental objetiva (LFRA)</span>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-blue-200">
+                <a href="https://canacintraleon.org.mx/normas-ambientales-2025-lo-que-las-empresas-mexicanas-deben-cumplir/" class="citation-link text-xs" target="_blank">[34]</a>
+              </div>
+            </div>
+
+            <!-- Energy Sector -->
+            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl shadow-lg p-6 border border-yellow-200">
+              <div class="flex items-center mb-4">
+                <div class="bg-yellow-500 rounded-full p-3 mr-4">
+                  <i class="fas fa-bolt text-white text-xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-forest">Sector Energético</h3>
+              </div>
+              <div class="space-y-3 text-sm">
+                <div class="flex items-start">
+                  <i class="fas fa-solar-panel text-yellow-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Transición hacia energías renovables</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-percentage text-yellow-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Reducción del 22% de GEI para 2025</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-arrow-up text-yellow-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">30% aumento en capacidad renovable para 2030</span>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-yellow-200">
+                <a href="https://elmundodelabogado.com/reforma-energetica-2025-mexico/" class="citation-link text-xs" target="_blank">[35]</a>
+              </div>
+            </div>
+
+            <!-- Mining Sector -->
+            <div class="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl shadow-lg p-6 border border-amber-200">
+              <div class="flex items-center mb-4">
+                <div class="bg-amber-500 rounded-full p-3 mr-4">
+                  <i class="fas fa-mountain text-white text-xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-forest">Sector Minero</h3>
+              </div>
+              <div class="space-y-3 text-sm">
+                <div class="flex items-start">
+                  <i class="fas fa-tint text-amber-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Prioridad del agua para consumo humano</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-lock text-amber-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Planes de cierre ambiental obligatorios</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-ban text-amber-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Prohibición en Áreas Naturales Protegidas</span>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-amber-200">
+                <a href="https://www.gob.mx/se/prensa/reforma-integral-a-la-actividad-minera" class="citation-link text-xs" target="_blank">[36]</a>
+              </div>
+            </div>
+
+            <!-- Agricultural Sector -->
+            <div class="bg-gradient-to-br from-lime-50 to-lime-100 rounded-xl shadow-lg p-6 border border-lime-200">
+              <div class="flex items-center mb-4">
+                <div class="bg-lime-500 rounded-full p-3 mr-4">
+                  <i class="fas fa-seedling text-white text-xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-forest">Sector Agroalimentario</h3>
+              </div>
+              <div class="space-y-3 text-sm">
+                <div class="flex items-start">
+                  <i class="fas fa-tint text-lime-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Gestión eficiente del agua en agricultura</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-bug text-lime-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Uso controlado de plaguicidas</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-leaf text-lime-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Promoción de prácticas sustentables</span>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-lime-200">
+                <a href="https://consultorescmc.com/normas-oficiales-mexicanas-vigentes-en-2025-guia-exhaustiva/" class="citation-link text-xs" target="_blank">[37]</a>
+              </div>
+            </div>
+
+            <!-- Health & Safety -->
+            <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl shadow-lg p-6 border border-red-200">
+              <div class="flex items-center mb-4">
+                <div class="bg-red-500 rounded-full p-3 mr-4">
+                  <i class="fas fa-heartbeat text-white text-xl"></i>
+                </div>
+                <h3 class="font-serif text-xl font-semibold text-forest">Salud Ambiental</h3>
+              </div>
+              <div class="space-y-3 text-sm">
+                <div class="flex items-start">
+                  <i class="fas fa-shield-virus text-red-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Manejo de residuos biológico-infecciosos</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-utensils text-red-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Higiene en procesamiento de alimentos</span>
+                </div>
+                <div class="flex items-start">
+                  <i class="fas fa-hard-hat text-red-500 mt-1 mr-2"></i>
+                  <span class="text-charcoal/80">Seguridad y salud en el trabajo</span>
+                </div>
+              </div>
+              <div class="mt-4 pt-4 border-t border-red-200">
+                <a href="https://consultorescmc.com/normas-oficiales-mexicanas-vigentes-en-2025-guia-exhaustiva/" class="citation-link text-xs" target="_blank">[38]</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 5: Ecological Transition -->
+      <section id="transicion" class="py-16 bg-mist">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="mb-12">
+            <h2 class="font-serif text-4xl font-bold text-forest mb-6">5. Transición Ecológica en México 2025</h2>
+            <p class="text-lg text-charcoal/80 leading-relaxed">
+              El marco normativo ambiental mexicano en 2025 refleja un compromiso acelerado con la transición ecológica, impulsando cambios estructurales en los modelos de producción y consumo hacia la sostenibilidad ambiental.
+            </p>
+          </div>
+
+          <!-- Transition Timeline -->
+          <div class="bg-white rounded-xl shadow-lg p-8 mb-12">
+            <h3 class="font-serif text-2xl font-semibold text-forest mb-8">Línea de Tiempo de la Transición Ecológica</h3>
+            <div class="mermaid-container">
+              <div class="mermaid-controls">
+                <button class="mermaid-control-btn zoom-in" title="Acercar">
+                  <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="mermaid-control-btn zoom-out" title="Alejar">
+                  <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="mermaid-control-btn reset-zoom" title="Restablecer">
+                  <i class="fas fa-expand-arrows-alt"></i>
+                </button>
+                <button class="mermaid-control-btn fullscreen" title="Pantalla completa">
+                  <i class="fas fa-expand"></i>
+                </button>
+              </div>
+              <div class="mermaid">
+                graph LR
+                    subgraph 2024
+                        A1[Reforma Ley de Minería]
+                        A2[Prioridad al agua]
+                        A3[Planes de cierre ambiental]
+                    end
+
+                    subgraph 2025
+                        B1[Reforma Energética]
+                        B2[Reducción 22% GEI]
+                        B3[Actualización NOM-163]
+                    end
+
+                    subgraph 2026
+                        C1[Aplicación NOM-163]
+                        C2[Impulso a Economía Circular]
+                    end
+
+                    subgraph 2030
+                        D1[Metas Climáticas]
+                        D2[30% Energías Renovables]
+                        D3[35% Reducción GEI]
+                    end
+
+                    2024 --> 2025 --> 2026 --> 2030
+
+                    style 2024 fill:#2D4A2B,stroke:#fff,stroke-width:2px,color:#fff
+                    style 2025 fill:#9CAF88,stroke:#2D4A2B,stroke-width:2px,color:#2D4A2B
+                    style 2026 fill:#D4C4A8,stroke:#2D4A2B,stroke-width:2px,color:#2D4A2B
+                    style 2030 fill:#2D4A2B,stroke:#fff,stroke-width:2px,color:#fff
+
+                    style A1 fill:#F5F7F4,stroke:#2D4A2B
+                    style A2 fill:#F5F7F4,stroke:#2D4A2B
+                    style A3 fill:#F5F7F4,stroke:#2D4A2B
+                    style B1 fill:#F5F7F4,stroke:#2D4A2B
+                    style B2 fill:#F5F7F4,stroke:#2D4A2B
+                    style B3 fill:#F5F7F4,stroke:#2D4A2B
+                    style C1 fill:#F5F7F4,stroke:#2D4A2B
+                    style C2 fill:#F5F7F4,stroke:#2D4A2B
+                    style D1 fill:#F5F7F4,stroke:#2D4A2B
+                    style D2 fill:#F5F7F4,stroke:#2D4A2B
+                    style D3 fill:#F5F7F4,stroke:#2D4A2B
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Transition Areas -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Circular Economy -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+              <div class="flex items-center mb-6">
+                <div class="bg-sage/20 rounded-full p-4 mr-4">
+                  <i class="fas fa-recycle text-sage text-2xl"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-semibold text-forest">Economía Circular</h3>
+              </div>
+              <div class="space-y-4">
+                <p class="text-charcoal/80">
+                  La LGPGIR promueve activamente la transición hacia prácticas de economía circular, fomentando el reciclaje y reutilización de materiales en todos los sectores productivos.
+                  <a href="https://canacintraleon.org.mx/normas-ambientales-2025-lo-que-las-empresas-mexicanas-deben-cumplir/" class="citation-link ml-1" target="_blank">[39]</a>
+                </p>
+                <div class="bg-sage/10 rounded-lg p-4">
+                  <h4 class="font-semibold text-forest mb-2">Iniciativas clave:</h4>
+                  <ul class="text-sm text-charcoal/80 space-y-1">
+                    <li>• Planes de manejo integral de residuos</li>
+                    <li>• Eliminación de plásticos de un solo uso</li>
+                    <li>• Gestión de baterías de ion-litio</li>
+                    <li>• Valorización de residuos industriales</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Electric Mobility -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+              <div class="flex items-center mb-6">
+                <div class="bg-forest/20 rounded-full p-4 mr-4">
+                  <i class="fas fa-charging-station text-forest text-2xl"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-semibold text-forest">Movilidad Eléctrica</h3>
+              </div>
+              <div class="space-y-4">
+                <p class="text-charcoal/80">
+                  La normativa impulsa la transición hacia vehículos eléctricos e híbridos, con metas ambiciosas y actualización de estándares de eficiencia energética.
+                  <a href="https://auteco.mx/2025-el-ano-en-que-las-flotillas-electricas-se-convierten-en-la-nueva-normalidad-empresarial/" class="citation-link ml-1" target="_blank">[40]</a>
+                </p>
+                <div class="bg-forest/10 rounded-lg p-4">
+                  <h4 class="font-semibold text-forest mb-2">Objetivos estratégicos:</h4>
+                  <ul class="text-sm text-charcoal/80 space-y-1">
+                    <li>• 50% de ventas de vehículos eléctricos/híbridos para 2030</li>
+                    <li>• Actualización de NOM-163 para modelos 2028+</li>
+                    <li>• Infraestructura de carga eléctrica</li>
+                    <li>• Programas de sustitución de vehículos antiguos</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Energy Transition -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+              <div class="flex items-center mb-6">
+                <div class="bg-yellow-100 rounded-full p-4 mr-4">
+                  <i class="fas fa-solar-panel text-yellow-600 text-2xl"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-semibold text-forest">Transición Energética</h3>
+              </div>
+              <div class="space-y-4">
+                <p class="text-charcoal/80">
+                  La Reforma Energética 2025 establece las bases para un sistema eléctrico más sostenible, con énfasis en energías renovables y eficiencia energética.
+                  <a href="https://elmundodelabogado.com/reforma-energetica-2025-mexico/" class="citation-link ml-1" target="_blank">[41]</a>
+                </p>
+                <div class="bg-yellow-50 rounded-lg p-4">
+                  <h4 class="font-semibold text-forest mb-2">Metas clave:</h4>
+                  <ul class="text-sm text-charcoal/80 space-y-1">
+                    <li>• 22% reducción de GEI para 2025 (vs 2020)</li>
+                    <li>• 30% aumento en capacidad renovable para 2030</li>
+                    <li>• 25% reducción en dependencia de combustibles fósiles</li>
+                    <li>• Creación de mercados de carbono</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Climate Action -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+              <div class="flex items-center mb-6">
+                <div class="bg-green-100 rounded-full p-4 mr-4">
+                  <i class="fas fa-globe text-green-600 text-2xl"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-semibold text-forest">Acción Climática</h3>
+              </div>
+              <div class="space-y-4">
+                <p class="text-charcoal/80">
+                  México se compromete con metas ambiciosas de reducción de emisiones en línea con el Acuerdo de París y el fortalecimiento de la política climática nacional.
+                  <a href="https://cemda.org.mx/llamado-urgente-al-gobierno-para-actualizar-normas-de-eficiencia-en-vehiculos-y-reducir-gases-y-compuestos-de-efecto-invernadero/" class="citation-link ml-1" target="_blank">[42]</a>
+                </p>
+                <div class="bg-green-50 rounded-lg p-4">
+                  <h4 class="font-semibold text-forest mb-2">Compromisos internacionales:</h4>
+                  <ul class="text-sm text-charcoal/80 space-y-1">
+                    <li>• 35% reducción de GEI para 2030 (Acuerdo de París)</li>
+                    <li>• Fortalecimiento de la LGCC</li>
+                    <li>• Creación de nueva Subsecretaría de Desarrollo Sostenible</li>
+                    <li>• Implementación de mercado de carbono</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Seccion del Asistente IA -->
+      <section id="asistente-ia" class="py-16 bg-white">
+          <div class="max-w-4xl mx-auto px-6">
+              <div class="bg-forest/5 border-l-4 border-forest p-8 rounded-r-lg">
+                  <h2 class="font-serif text-3xl font-bold text-forest mb-4">Asistente de Normatividad</h2>
+                  <p class="text-lg leading-relaxed text-charcoal mb-6">
+                      ¿Tienes alguna duda sobre la normativa ambiental mexicana? Pregúntale a nuestro asistente.
+                  </p>
+                  <div class="flex items-center space-x-4 mb-4">
+                      <input type="text" id="ai-question" class="w-full px-4 py-3 border border-sage/50 rounded-lg focus:ring-2 focus:ring-sage focus:outline-none transition" placeholder="Ej: ¿Qué dice la NOM-001-SEMARNAT-2021?">
+                      <button id="ask-ai-btn" class="bg-forest text-white px-6 py-3 rounded-lg font-semibold hover:bg-sage transition-transform transform hover:scale-105">
+                          <i class="fas fa-paper-plane mr-2"></i>Preguntar
+                      </button>
+                  </div>
+                  <p class="text-xs text-center text-stone italic mt-2 mb-4">Recuerda: La IA puede cometer errores. Verifica siempre la información importante.</p>
+                  <div id="ai-response-container" class="mt-6 p-6 bg-mist rounded-lg min-h-[100px] text-charcoal/90">
+                      <p class="text-charcoal/60">La respuesta del asistente aparecerá aquí...</p>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+<!-- Conclusion -->
+      <section class="py-16 bg-forest text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+          <h2 class="font-serif text-4xl font-bold mb-6">Hacia un Desarrollo Sostenible</h2>
+          <p class="text-xl leading-relaxed mb-8 opacity-90">
+            La normativa ambiental mexicana actualizada al 2025 representa un avance significativo hacia la construcción de un marco jurídico robusto y moderno que responde a los desafíos ambientales del siglo XXI. Con un enfoque en la prevención, la economía circular y la transición energética, México se posiciona para cumplir con sus compromisos internacionales mientras impulsa un desarrollo económico sostenible e inclusivo.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+            <div class="text-center">
+              <div class="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-shield-alt text-2xl"></i>
+              </div>
+              <h3 class="font-serif text-lg font-semibold mb-2">Protección Ambiental</h3>
+              <p class="text-sm opacity-80">Fortalecimiento de los instrumentos de prevención y control</p>
+            </div>
+            <div class="text-center">
+              <div class="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-balance-scale text-2xl"></i>
+              </div>
+              <h3 class="font-serif text-lg font-semibold mb-2">Responsabilidad</h3>
+              <p class="text-sm opacity-80">Marco jurídico robusto para la reparación de daños</p>
+            </div>
+            <div class="text-center">
+              <div class="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-seedling text-2xl"></i>
+              </div>
+              <h3 class="font-serif text-lg font-semibold mb-2">Sostenibilidad</h3>
+              <p class="text-sm opacity-80">Transición hacia modelos de producción sustentables</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Credits Section -->
+      <section class="py-12 bg-charcoal text-white">
+        <div class="max-w-4xl mx-auto px-6">
+          <div class="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-8">
+            <div class="text-center mb-8">
+              <div class="bg-sage/20 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-graduation-cap text-sage text-3xl"></i>
+              </div>
+              <h2 class="font-serif text-2xl font-bold text-sage mb-2">Créditos</h2>
+              <div class="w-20 h-0.5 bg-sage mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+              <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                  <i class="fas fa-user-graduate text-sage text-lg"></i>
+                  <div>
+                    <p class="font-semibold text-lg">Axel Johann Vázquez Cruz</p>
+                    <p class="text-white/70 text-sm">Autor y Desarrollador</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                  <i class="fas fa-university text-sage text-lg"></i>
+                  <div>
+                    <p class="font-medium">Universidad Tecnológica de Tijuana (UTT)</p>
+                    <p class="text-white/70 text-sm">Grupo 2A - Procesos Productivos</p>
+                  </div>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                  <i class="fas fa-book text-sage text-lg"></i>
+                  <div>
+                    <p class="font-medium">Seguridad, Higiene y Medio Ambiente</p>
+                    <p class="text-white/70 text-sm">Proyecto sobre las NOMs en el giro ambiental - 2025</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="text-center md:text-right">
+                <div class="bg-white/5 rounded-lg p-6 border border-white/10">
+                  <h3 class="font-serif text-lg font-semibold text-sage mb-3">Tarea Sobre Normativa del Medio Ambiente</h3>
+                  <p class="text-sm text-white/80 leading-relaxed">
+                    Este trabajo representa una investigación  sobre la normativa ambiental mexicana actual, desarrollado para exentar jaja.
+                  </p>
+                  <div class="mt-4 pt-4 border-t border-white/10">
+                    <p class="text-xs text-white/60">
+                      <i class="fas fa-calendar-alt mr-2"></i>
+                      Desarrollado en 2025
+                    </p>
+                    <p class="text-xs text-white/60 mt-1">
+                      <i class="fas fa-map-marker-alt mr-2"></i>
+                      Tijuana, Baja California, México
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+
+          </div>
+        </div>
+      </section>
+    <script>
+        // Initialize Mermaid with custom theme
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                // Primary colors with high contrast
+                primaryColor: '#2D4A2B',
+                primaryTextColor: '#FFFFFF',
+                primaryBorderColor: '#2D4A2B',
+                
+                // Secondary colors
+                secondaryColor: '#9CAF88',
+                secondaryTextColor: '#2D4A2B',
+                secondaryBorderColor: '#2D4A2B',
+                
+                // Tertiary colors
+                tertiaryColor: '#D4C4A8',
+                tertiaryTextColor: '#2D4A2B',
+                tertiaryBorderColor: '#8B7355',
+                
+                // Background and line colors
+                background: '#FFFFFF',
+                mainBkg: '#2D4A2B',
+                secondBkg: '#9CAF88',
+                tertiaryBkg: '#D4C4A8',
+                lineColor: '#8B7355',
+                textColor: '#2D4A2B',
+                
+                // Node colors with better contrast ratios
+                nodeBkg: '#9CAF88',
+                nodeTextColor: '#2D4A2B',
+                nodeBorder: '#2D4A2B',
+                
+                // Cluster colors
+                clusterBkg: '#F5F7F4',
+                clusterBorder: '#8B7355',
+                
+                // Timeline specific colors
+                cScale0: '#2D4A2B',
+                cScale1: '#9CAF88', 
+                cScale2: '#D4C4A8',
+                
+                // Grid and axis colors
+                gridColor: '#8B7355',
+                axisTextColor: '#2D4A2B'
+            },
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 20
+            },
+            timeline: {
+                useMaxWidth: false,
+                padding: 20
+            },
+            fontFamily: 'Inter, sans-serif',
+            fontSize: 14,
+            fontWeight: 600
+        });
+
+        // Initialize Mermaid Controls when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMermaidControls();
+        });
+        
+        // Function for Mermaid Controls
+        function initializeMermaidControls() {
+            const containers = document.querySelectorAll('.mermaid-container');
+
+            containers.forEach(container => {
+            const mermaidElement = container.querySelector('.mermaid');
+            let scale = 1;
+            let isDragging = false;
+            let startX, startY, translateX = 0, translateY = 0;
+
+            // 触摸相关状态
+            let isTouch = false;
+            let touchStartTime = 0;
+            let initialDistance = 0;
+            let initialScale = 1;
+            let isPinching = false;
+
+            // Zoom controls
+            const zoomInBtn = container.querySelector('.zoom-in');
+            const zoomOutBtn = container.querySelector('.zoom-out');
+            const resetBtn = container.querySelector('.reset-zoom');
+            const fullscreenBtn = container.querySelector('.fullscreen');
+
+            function updateTransform() {
+                mermaidElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+                if (scale > 1) {
+                container.classList.add('zoomed');
+                } else {
+                container.classList.remove('zoomed');
+                }
+
+                mermaidElement.style.cursor = isDragging ? 'grabbing' : 'grab';
+            }
+
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', () => {
+                scale = Math.min(scale * 1.25, 4);
+                updateTransform();
+                });
+            }
+
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', () => {
+                scale = Math.max(scale / 1.25, 0.3);
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+                updateTransform();
+                });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                scale = 1;
+                translateX = 0;
+                translateY = 0;
+                updateTransform();
+                });
+            }
+
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                    if (document.fullscreenElement !== container) {
+                        container.requestFullscreen();
+                    } else {
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        }
+                    }
+                });
+            }
+
+            // We add a listener to the document to catch all fullscreen changes,
+            // including pressing the 'Esc' key.
+            document.addEventListener('fullscreenchange', () => {
+                const icon = fullscreenBtn.querySelector('i');
+                const isFullscreenNow = document.fullscreenElement === container;
+
+                if (isFullscreenNow) {
+                    icon.classList.remove('fa-expand');
+                    icon.classList.add('fa-compress');
+                    fullscreenBtn.setAttribute('title', 'Salir de pantalla completa');
+                } else {
+                    icon.classList.remove('fa-compress');
+                    icon.classList.add('fa-expand');
+                    fullscreenBtn.setAttribute('title', 'Pantalla completa');
+                }
+            });
+
+            // Mouse Events
+            mermaidElement.addEventListener('mousedown', (e) => {
+                if (isTouch) return; // 如果是触摸设备，忽略鼠标事件
+
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                mermaidElement.style.cursor = 'grabbing';
+                updateTransform();
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging && !isTouch) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseleave', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            // 获取两点之间的距离
+            function getTouchDistance(touch1, touch2) {
+                return Math.hypot(
+                touch2.clientX - touch1.clientX,
+                touch2.clientY - touch1.clientY
+                );
+            }
+
+            // Touch Events - 触摸事件处理
+            mermaidElement.addEventListener('touchstart', (e) => {
+                isTouch = true;
+                touchStartTime = Date.now();
+
+                if (e.touches.length === 1) {
+                // 单指拖动
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+
+                } else if (e.touches.length === 2) {
+                // 双指缩放
+                isPinching = true;
+                isDragging = false;
+
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                initialDistance = getTouchDistance(touch1, touch2);
+                initialScale = scale;
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && isDragging && !isPinching) {
+                // 单指拖动
+                const touch = e.touches[0];
+                translateX = touch.clientX - startX;
+                translateY = touch.clientY - startY;
+                updateTransform();
+
+                } else if (e.touches.length === 2 && isPinching) {
+                // 双指缩放
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const currentDistance = getTouchDistance(touch1, touch2);
+
+                if (initialDistance > 0) {
+                    const newScale = Math.min(Math.max(
+                    initialScale * (currentDistance / initialDistance),
+                    0.3
+                    ), 4);
+                    scale = newScale;
+                    updateTransform();
+                }
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchend', (e) => {
+                // 重置状态
+                if (e.touches.length === 0) {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                // 延迟重置isTouch，避免鼠标事件立即触发
+                setTimeout(() => {
+                    isTouch = false;
+                }, 100);
+                } else if (e.touches.length === 1 && isPinching) {
+                // 从双指变为单指，切换为拖动模式
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+                }
+
+                updateTransform();
+            });
+
+            mermaidElement.addEventListener('touchcancel', (e) => {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                setTimeout(() => {
+                isTouch = false;
+                }, 100);
+
+                updateTransform();
+            });
+
+            // Enhanced wheel zoom with better center point handling
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                const newScale = Math.min(Math.max(scale * delta, 0.3), 4);
+
+                // Adjust translation to zoom towards center
+                if (newScale !== scale) {
+                const scaleDiff = newScale / scale;
+                translateX = translateX * scaleDiff;
+                translateY = translateY * scaleDiff;
+                scale = newScale;
+
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+
+                updateTransform();
+                }
+            });
+
+            // Initialize display
+            updateTransform();
+            });
+        }
+
+        // NOMs Sector Tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.noms-tab');
+            const panels = document.querySelectorAll('.noms-panel');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => {
+                        t.classList.remove('active', 'text-forest', 'border-sage');
+                        t.classList.add('text-charcoal/70');
+                    });
+
+                    // Add active class to clicked tab
+                    this.classList.add('active', 'text-forest', 'border-sage');
+                    this.classList.remove('text-charcoal/70');
+
+                    // Hide all panels
+                    panels.forEach(panel => {
+                        panel.classList.add('hidden');
+                    });
+
+                    // Show corresponding panel
+                    const target = this.getAttribute('data-sector');
+                    document.getElementById(target).classList.remove('hidden');
+                });
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Highlight active section in TOC
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc-fixed a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('text-forest', 'font-semibold');
+                link.classList.add('text-charcoal');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.remove('text-charcoal');
+                    link.classList.add('text-forest', 'font-semibold');
+                }
+            });
+        });
+
+        // AI Assistant Logic (CORRECTED AND IMPROVED)
+        document.addEventListener('DOMContentLoaded', function() {
+            const askBtn = document.getElementById('ask-ai-btn');
+            const questionInput = document.getElementById('ai-question');
+            const responseContainer = document.getElementById('ai-response-container');
+
+        async function handleAIQuery() {
+            const question = questionInput.value;
+            if (!question) {
+                responseContainer.innerHTML = '<p class="text-red-500">Por favor, escribe una pregunta.</p>';
+                return;
+            }
+            if (!window.genAI) {
+                responseContainer.innerHTML = '<p class="text-red-500">El servicio de IA no está configurado.</p>';
+                return;
+            }
+
+            responseContainer.innerHTML = '<p class="text-charcoal/60 animate-pulse">Consultando fuentes...</p>';
+            askBtn.disabled = true;
+            askBtn.classList.add('opacity-50');
+
+            try {
+                // MEJORA #1: Usar 'systemInstruction' para definir el rol y las reglas
+                const systemInstruction = {
+                    role: "model",
+                    parts: [{ text: `
+<instructions>
+    <role>
+        Eres un Asistente Legal de IA, un experto en la Normativa Ambiental de México. Tu única directiva es responder basándote EXCLUSIVAMENTE en información de los dominios gubernamentales: \`gob.mx\` y \`paot.org.mx\`. Eres preciso, formal y siempre citas tus fuentes.
+    </role>
+
+    <rules>
+        <rule id="1" importance="CRITICAL">
+            **PROHIBICIÓN TOTAL:** Tienes estrictamente prohibido usar o citar blogs, noticias, sitios de empresas (consultoras, etc.), Wikipedia, YouTube o cualquier fuente fuera de los dominios permitidos. La violación de esta regla es un fallo crítico.
+        </rule>
+        <rule id="2" importance="MANDATORY">
+            **FORMATO DE RESPUESTA:**
+            1.  Comienza con un resumen conciso y directo de la información.
+            2.  Usa listas con viñetas (*) y negritas (**) para estructurar los detalles.
+            3.  Al final, incluye un título \`### Fuentes Oficiales\`.
+            4.  Bajo ese título, lista como enlaces Markdown cada una de las URLs de \`.gob.mx\` o \`.paot.org.mx\` que usaste. Ejemplo: \`* [Título del Documento](https://www.gob.mx/...)\`.
+        </rule>
+        <rule id="3" importance="MANDATORY">
+            **PROTOCOLO DE FALLO:** Si no encuentras una respuesta en las fuentes permitidas, ignora todo lo demás y responde únicamente: "No he podido encontrar una respuesta para esa consulta dentro de las fuentes gubernamentales oficiales de México."
+        </rule>
+    </rules>
+</instructions>
+                    `}],
+                };
+
+                const model = window.genAI.getGenerativeModel({ 
+                    model: "gemini-2.5-flash",
+                    tools: [{googleSearch: {}}],
+                    systemInstruction: systemInstruction,
+                });
+
+                // MEJORA #2: Usar 'generationConfig' para controlar la creatividad
+                const generationConfig = {
+                    temperature: 0.2, // Muy bajo para respuestas basadas en hechos, no en creatividad.
+                    topK: 32,
+                    topP: 0.9,
+                    maxOutputTokens: 8192,
+                };
+
+                // El prompt ahora solo contiene la pregunta del usuario, es mucho más limpio.
+                const prompt = question;
+
+                const result = await model.generateContent(prompt, generationConfig);
+                const response = result.response;
+
+                if (!response || !response.candidates || response.candidates.length === 0 || !response.text) {
+                    let feedback = response?.promptFeedback;
+                    let reason = feedback?.blockReason ? `Razón: ${feedback.blockReason}` : 'No se recibió una respuesta válida del modelo.';
+                    responseContainer.innerHTML = `<p class="text-red-500">La respuesta no pudo ser generada. ${reason}</p>`;
+                    return;
+                }
+                
+                const text = response.text();
+                const formattedText = marked.parse(text);
+                
+                responseContainer.innerHTML = formattedText;
+
+            } catch (error) {
+                console.error("Error fetching AI response:", error);
+                if (error.toString().includes('429')) {
+                     responseContainer.innerHTML = '<p class="text-orange-500">Has alcanzado el límite de solicitudes. Por favor, espera un minuto.</p>';
+                } else {
+                     responseContainer.innerHTML = '<p class="text-red-500">Hubo un error al contactar al asistente. Revisa la consola.</p>';
+                }
+            } finally {
+                setTimeout(() => {
+                    askBtn.disabled = false;
+                    askBtn.classList.remove('opacity-50');
+                }, 4000);
+            }
+        }
+
+            askBtn.addEventListener('click', handleAIQuery);
+            questionInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleAIQuery();
+                }
+            });
+        });
+    </script>
+    <script>
+async function generatePDF() {
+   const { jsPDF } = window.jspdf;
+   const pdf = new jsPDF('p', 'mm', 'a4');
+   
+   const content = document.querySelector('main');
+   
+   const canvas = await html2canvas(content, {
+       scale: 2,            // Alta resolución para nitidez perfecta
+       useCORS: true,
+       allowTaint: true,
+       backgroundColor: '#ffffff',
+       removeContainer: true,
+       imageTimeout: 0,
+       logging: false,
+       width: content.scrollWidth,
+       height: content.scrollHeight,
+       dpi: 300            // DPI alto para impresión
+   });
+   
+   const imgData = canvas.toDataURL('image/jpeg', 0.95); // 95% calidad máxima
+   const imgWidth = 210;
+   const imgHeight = (canvas.height * imgWidth) / canvas.width;
+   
+   // Páginas múltiples si es necesario
+   let position = 0;
+   const pageHeight = 297;
+   
+   while (position < imgHeight) {
+       pdf.addImage(imgData, 'JPEG', 0, -position, imgWidth, imgHeight);
+       position += pageHeight;
+       if (position < imgHeight) pdf.addPage();
+   }
+   
+   pdf.save('Marco-Normativo-Ambiental-2025-Axel-Vazquez.pdf');
+}
+
+// Botón discreto en footer
+document.addEventListener('DOMContentLoaded', function() {
+   const pdfBtn = document.createElement('button');
+   pdfBtn.innerHTML = '<i class="fas fa-file-pdf mr-1"></i>PDF';
+   pdfBtn.className = 'bg-gray-600/80 hover:bg-red-600 text-white text-xs px-3 py-1 rounded transition-colors';
+   pdfBtn.onclick = generatePDF;
+   
+   const creditsSection = document.querySelector('section.bg-charcoal');
+   const container = creditsSection.querySelector('.max-w-4xl');
+   
+   const pdfContainer = document.createElement('div');
+   pdfContainer.className = 'text-center mt-4 pt-4 border-t border-white/10';
+   pdfContainer.appendChild(pdfBtn);
+   container.appendChild(pdfContainer);
+});
+</script>
+
+<!-- Floating Menu Button -->
+<button id="mobile-menu-toggle" class="xl:hidden fixed bottom-6 right-6 z-50 bg-forest text-white w-14 h-14 rounded-2xl shadow-2xl flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-mist focus:ring-sage transition-colors duration-300 ease-in-out">
+    <i class="fas fa-bars text-2xl"></i>
+</button>
+
+<!-- Menu Overlay -->
+<div id="menu-overlay" class="hidden fixed inset-0 bg-black/60 z-30 xl:hidden"></div>
+
+<script>
+// Mobile menu toggle script
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.getElementById('mobile-menu-toggle');
+    const closeBtn = document.getElementById('close-menu-btn');
+    const menu = document.getElementById('table-of-contents');
+    const overlay = document.getElementById('menu-overlay');
+    const menuLinks = menu.querySelectorAll('a');
+
+    function openMenu() {
+        menu.classList.add('is-open');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+    }
+
+    function closeMenu() {
+        menu.classList.remove('is-open');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = ''; // Restore scroll
+    }
+
+    toggleBtn.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    // Close menu when a link is clicked
+    menuLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+
+    // Dynamic button color based on background
+    const dynamicButton = document.getElementById('mobile-menu-toggle');
+    const sections = document.querySelectorAll('section');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const currentSection = entry.target;
+                // Reset classes
+                dynamicButton.classList.remove('bg-forest', 'text-white', 'bg-white', 'text-forest');
+
+                if (currentSection.classList.contains('bg-forest') || currentSection.classList.contains('bg-charcoal')) {
+                    // Dark background -> White button
+                    dynamicButton.classList.add('bg-white', 'text-forest');
+                } else {
+                    // Light background -> Dark button
+                    dynamicButton.classList.add('bg-forest', 'text-white');
+                }
+            }
+        });
+    }, { threshold: 0.4 }); // Triggers when 40% of the section is visible
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+</script>
+
+</body></html>
