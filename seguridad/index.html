@@ -292,27 +292,6 @@
             }
         }
     </style>
-    <script type="module">
-      // IMPORTANT: You need to get your own API key from Google AI Studio.
-      // Go to https://aistudio.google.com/app/apikey to create one.
-      // Replace "YOUR_API_KEY" with your actual key.
-      const API_KEY = "YOUR_API_KEY";
-
-      // Do not edit the code below this line
-      try {
-        const { GoogleGenerativeAI } = await import("https://esm.run/@google/generative-ai");
-        if (API_KEY.startsWith("YOUR_API" + "_KEY")) {
-            console.warn("AI Assistant is not configured. Please replace 'YOUR_API_KEY' with your actual Google AI Studio API key in the <script> tag in the <head> of the HTML file.");
-            window.genAI = null;
-        } else {
-            const genAI = new GoogleGenerativeAI(API_KEY);
-            window.genAI = genAI;
-        }
-      } catch(e) {
-        console.error("Could not load the Google Generative AI SDK. The AI Assistant will not work.", e);
-        window.genAI = null;
-      }
-    </script>
   </head>
 
   <body class="bg-mist font-sans text-charcoal leading-relaxed">
@@ -1780,102 +1759,52 @@
             });
         });
 
-        // AI Assistant Logic (CORRECTED AND IMPROVED)
+        // AI Assistant Logic (Backend-powered)
         document.addEventListener('DOMContentLoaded', function() {
             const askBtn = document.getElementById('ask-ai-btn');
             const questionInput = document.getElementById('ai-question');
             const responseContainer = document.getElementById('ai-response-container');
 
-        async function handleAIQuery() {
-            const question = questionInput.value;
-            if (!question) {
-                responseContainer.innerHTML = '<p class="text-red-500">Por favor, escribe una pregunta.</p>';
-                return;
-            }
-            if (!window.genAI) {
-                responseContainer.innerHTML = '<p class="text-red-500">El servicio de IA no está configurado.</p>';
-                return;
-            }
-
-            responseContainer.innerHTML = '<p class="text-charcoal/60 animate-pulse">Consultando fuentes...</p>';
-            askBtn.disabled = true;
-            askBtn.classList.add('opacity-50');
-
-            try {
-                // MEJORA #1: Usar 'systemInstruction' para definir el rol y las reglas
-                const systemInstruction = {
-                    role: "model",
-                    parts: [{ text: `
-<instructions>
-    <role>
-        Eres un Asistente Legal de IA, un experto en la Normativa Ambiental de México. Tu única directiva es responder basándote EXCLUSIVAMENTE en información de los dominios gubernamentales: \`gob.mx\` y \`paot.org.mx\`. Eres preciso, formal y siempre citas tus fuentes.
-    </role>
-
-    <rules>
-        <rule id="1" importance="CRITICAL">
-            **PROHIBICIÓN TOTAL:** Tienes estrictamente prohibido usar o citar blogs, noticias, sitios de empresas (consultoras, etc.), Wikipedia, YouTube o cualquier fuente fuera de los dominios permitidos. La violación de esta regla es un fallo crítico.
-        </rule>
-        <rule id="2" importance="MANDATORY">
-            **FORMATO DE RESPUESTA:**
-            1.  Comienza con un resumen conciso y directo de la información.
-            2.  Usa listas con viñetas (*) y negritas (**) para estructurar los detalles.
-            3.  Al final, incluye un título \`### Fuentes Oficiales\`.
-            4.  Bajo ese título, lista como enlaces Markdown cada una de las URLs de \`.gob.mx\` o \`.paot.org.mx\` que usaste. Ejemplo: \`* [Título del Documento](https://www.gob.mx/...)\`.
-        </rule>
-        <rule id="3" importance="MANDATORY">
-            **PROTOCOLO DE FALLO:** Si no encuentras una respuesta en las fuentes permitidas, ignora todo lo demás y responde únicamente: "No he podido encontrar una respuesta para esa consulta dentro de las fuentes gubernamentales oficiales de México."
-        </rule>
-    </rules>
-</instructions>
-                    `}],
-                };
-
-                const model = window.genAI.getGenerativeModel({ 
-                    model: "gemini-2.5-flash",
-                    tools: [{googleSearch: {}}],
-                    systemInstruction: systemInstruction,
-                });
-
-                // MEJORA #2: Usar 'generationConfig' para controlar la creatividad
-                const generationConfig = {
-                    temperature: 0.2, // Muy bajo para respuestas basadas en hechos, no en creatividad.
-                    topK: 32,
-                    topP: 0.9,
-                    maxOutputTokens: 8192,
-                };
-
-                // El prompt ahora solo contiene la pregunta del usuario, es mucho más limpio.
-                const prompt = question;
-
-                const result = await model.generateContent(prompt, generationConfig);
-                const response = result.response;
-
-                if (!response || !response.candidates || response.candidates.length === 0 || !response.text) {
-                    let feedback = response?.promptFeedback;
-                    let reason = feedback?.blockReason ? `Razón: ${feedback.blockReason}` : 'No se recibió una respuesta válida del modelo.';
-                    responseContainer.innerHTML = `<p class="text-red-500">La respuesta no pudo ser generada. ${reason}</p>`;
+            async function handleAIQuery() {
+                const question = questionInput.value;
+                if (!question) {
+                    responseContainer.innerHTML = '<p class="text-red-500">Por favor, escribe una pregunta.</p>';
                     return;
                 }
-                
-                const text = response.text();
-                const formattedText = marked.parse(text);
-                
-                responseContainer.innerHTML = formattedText;
 
-            } catch (error) {
-                console.error("Error fetching AI response:", error);
-                if (error.toString().includes('429')) {
-                     responseContainer.innerHTML = '<p class="text-orange-500">Has alcanzado el límite de solicitudes. Por favor, espera un minuto.</p>';
-                } else {
-                     responseContainer.innerHTML = '<p class="text-red-500">Hubo un error al contactar al asistente. Revisa la consola.</p>';
+                responseContainer.innerHTML = '<p class="text-charcoal/60 animate-pulse">Consultando al asistente...</p>';
+                askBtn.disabled = true;
+                askBtn.classList.add('opacity-50');
+
+                try {
+                    const response = await fetch('http://127.0.0.1:5000/api/ask-ai', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ question: question }),
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.error || `Error del servidor: ${response.status}`);
+                    }
+
+                    const formattedText = marked.parse(data.response);
+                    responseContainer.innerHTML = formattedText;
+
+                } catch (error) {
+                    console.error("Error al contactar al backend:", error);
+                    responseContainer.innerHTML = `<p class="text-red-500">No se pudo conectar con el asistente de IA. Asegúrate de que el servidor backend esté corriendo. (${error.message})</p>`;
+                } finally {
+                    // Re-enable button after a delay, regardless of outcome
+                    setTimeout(() => {
+                        askBtn.disabled = false;
+                        askBtn.classList.remove('opacity-50');
+                    }, 2000); // Shorter delay
                 }
-            } finally {
-                setTimeout(() => {
-                    askBtn.disabled = false;
-                    askBtn.classList.remove('opacity-50');
-                }, 4000);
             }
-        }
 
             askBtn.addEventListener('click', handleAIQuery);
             questionInput.addEventListener('keypress', function(e) {
