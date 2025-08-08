@@ -111,54 +111,55 @@ exports.handler = async (event) => {
     // Get grounding metadata if available
     const groundingMetadata = response.candidates?.[0]?.groundingMetadata;
     
-    // Function to add citations to the text
-    function addCitations(responseText, metadata) {
-      if (!metadata?.groundingSupports || !metadata?.groundingChunks) {
-        return responseText;
+    // Function to extract sources and clean text
+    function processGroundingResponse(responseText, metadata) {
+      if (!metadata?.groundingChunks || metadata.groundingChunks.length === 0) {
+        return {
+          cleanText: responseText,
+          sources: []
+        };
       }
 
-      let text = responseText;
-      const supports = metadata.groundingSupports;
-      const chunks = metadata.groundingChunks;
-
-      // Sort supports by endIndex in descending order to avoid shifting issues
-      const sortedSupports = [...supports].sort(
-        (a, b) => (b.segment?.endIndex ?? 0) - (a.segment?.endIndex ?? 0),
-      );
-
-      for (const support of sortedSupports) {
-        const endIndex = support.segment?.endIndex;
-        if (endIndex === undefined || !support.groundingChunkIndices?.length) {
-          continue;
+      // Extract unique sources
+      const sources = [];
+      const seenUrls = new Set();
+      
+      metadata.groundingChunks.forEach((chunk, index) => {
+        if (chunk?.web?.uri && !seenUrls.has(chunk.web.uri)) {
+          seenUrls.add(chunk.web.uri);
+          sources.push({
+            title: chunk.web.title || `Fuente ${sources.length + 1}`,
+            url: chunk.web.uri
+          });
         }
+      });
 
-        const citationLinks = support.groundingChunkIndices
-          .map(i => {
-            const chunk = chunks[i];
-            const uri = chunk?.web?.uri;
-            const title = chunk?.web?.title || `Fuente ${i + 1}`;
-            if (uri) {
-              return `[${title}](${uri})`;
-            }
-            return null;
-          })
-          .filter(Boolean);
-
-        if (citationLinks.length > 0) {
-          const citationString = ` (${citationLinks.join(", ")})`;
-          text = text.slice(0, endIndex) + citationString + text.slice(endIndex);
-        }
+      // Create sources section
+      let sourcesSection = "";
+      if (sources.length > 0) {
+        sourcesSection = "\n\n### Fuentes Oficiales\n\n";
+        sources.forEach((source, index) => {
+          sourcesSection += `* [${source.title}](${source.url})\n`;
+        });
       }
 
-      return text;
+      return {
+        cleanText: responseText + sourcesSection,
+        sources: sources
+      };
     }
 
-    // Add citations if grounding metadata is available
+    // Process the response with clean sources at the end
     let finalText = text;
+    let sourcesInfo = [];
+    
     if (groundingMetadata) {
-      finalText = addCitations(text, groundingMetadata);
+      const processed = processGroundingResponse(text, groundingMetadata);
+      finalText = processed.cleanText;
+      sourcesInfo = processed.sources;
+      
       console.log("Grounding activated. Search queries:", groundingMetadata.webSearchQueries);
-      console.log("Sources found:", groundingMetadata.groundingChunks?.length || 0);
+      console.log("Sources found:", sourcesInfo.length);
     } else {
       console.log("Response generated from model's knowledge base");
     }
@@ -178,9 +179,9 @@ exports.handler = async (event) => {
         "Access-Control-Allow-Headers": "Content-Type",
       },
       body: JSON.stringify({ 
-        response: finalText, // Usar el texto con citas
+        response: finalText, // Texto limpio con fuentes al final
         grounded: !!groundingMetadata,
-        sources_found: groundingMetadata?.groundingChunks?.length || 0,
+        sources_found: sourcesInfo.length,
         timestamp: new Date().toISOString()
       }),
     };
