@@ -50,7 +50,7 @@ exports.handler = async (event) => {
     }
 
     // Sanitize question to prevent prompt injection
-    const sanitizedQuestion = question.trim().substring(0, 2000); // Limit length
+    const sanitizedQuestion = question.trim().substring(0, 2000);
 
     // --- 3. Configure and call the Generative AI model with grounding ---
     const genAI = new GoogleGenerativeAI(apiKey);
@@ -86,45 +86,25 @@ exports.handler = async (event) => {
 </instructions>
 `;
 
+    // Create model with grounding tool
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash", // Versión estable con grounding
+      model: "gemini-2.5-flash",
       systemInstruction: systemInstruction,
+      tools: [{
+        googleSearch: {}
+      }],
       generationConfig: {
-        temperature: 0.1, // Baja creatividad para respuestas precisas
+        temperature: 0.1,
         topP: 0.8,
         topK: 10,
         maxOutputTokens: 2048,
       },
     });
 
-    // Define the grounding tool using current syntax
-    const groundingTool = {
-      googleSearch: {}, // Nueva sintaxis oficial
-    };
-
-    const config = {
-      tools: [groundingTool],
-    };
-
-    // Prepare the enhanced question with search hints
-    const enhancedQuestion = `
-CONSULTA LEGAL AMBIENTAL: ${sanitizedQuestion}
-
-INSTRUCCIONES DE BÚSQUEDA:
-- Busca en sitios oficiales mexicanos (gob.mx, paot.org.mx)
-- Prioriza normativas actuales y vigentes
-- Incluye referencias específicas a leyes y reglamentos
-- Verifica que las fuentes sean de autoridades ambientales oficiales
-`;
-
     console.log("Calling Gemini with grounding for question:", sanitizedQuestion);
     
-    // Make the request with grounding using current API
-    const result = await model.generateContent({
-      contents: enhancedQuestion,
-      ...config, // Include grounding tools
-    });
-    
+    // Make the request with grounding
+    const result = await model.generateContent(sanitizedQuestion);
     const response = await result.response;
     const text = await response.text();
 
@@ -134,7 +114,6 @@ INSTRUCCIONES DE BÚSQUEDA:
     // Log grounding info for debugging
     if (groundingMetadata) {
       console.log("Grounding activated. Search queries:", groundingMetadata.webSearchQueries);
-      console.log("Found", groundingMetadata.groundingChunks?.length || 0, "source chunks");
     } else {
       console.log("Response generated from model's knowledge base");
     }
@@ -144,35 +123,26 @@ INSTRUCCIONES DE BÚSQUEDA:
       throw new Error("Empty response from AI model");
     }
 
-    // Log successful processing (without exposing sensitive data)
-    console.log("Successfully processed question with grounding. Response length:", text.length);
-
-    // --- 4. Return the successful response with grounding info ---
+    // --- 4. Return the successful response ---
     return {
       statusCode: 200,
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*", // Allow requests from any origin
+        "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
       },
       body: JSON.stringify({ 
         response: text,
-        grounded: !!groundingMetadata, // Indica si se usó grounding
-        sources_count: groundingMetadata?.groundingChunks?.length || 0,
-        search_queries: groundingMetadata?.webSearchQueries || [],
-        timestamp: new Date().toISOString(),
-        model_used: "gemini-2.5-flash-with-grounding"
+        grounded: !!groundingMetadata,
+        timestamp: new Date().toISOString()
       }),
     };
 
   } catch (error) {
     // Enhanced error logging for debugging
-    console.error("FATAL ERROR: An unexpected error occurred:", {
-      message: error.message,
-      stack: error.stack,
-      timestamp: new Date().toISOString()
-    });
+    console.error("FATAL ERROR:", error.message);
+    console.error("Stack:", error.stack);
 
     // Different error responses based on error type
     if (error.message && error.message.includes('API_KEY')) {
@@ -197,7 +167,7 @@ INSTRUCCIONES DE BÚSQUEDA:
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
         error: "An internal server error occurred. Please try again later.",
-        timestamp: new Date().toISOString()
+        debug: error.message // Temporal para debug
       }),
     };
   }
