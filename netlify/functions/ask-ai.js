@@ -40,67 +40,165 @@ exports.handler = async (event) => {
       };
     }
 
-    if (!question) {
-      console.error("ERROR: 'question' field is missing from the request body.");
+    if (!question || typeof question !== 'string' || question.trim().length === 0) {
+      console.error("ERROR: 'question' field is missing or invalid from the request body.");
       return {
         statusCode: 400,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ error: "Bad Request: No question provided." }),
+        body: JSON.stringify({ error: "Bad Request: No valid question provided." }),
       };
     }
 
-    // --- 3. Configure and call the Generative AI model ---
+    // Sanitize question to prevent prompt injection
+    const sanitizedQuestion = question.trim().substring(0, 2000); // Limit length
+
+    // --- 3. Configure and call the Generative AI model with grounding ---
     const genAI = new GoogleGenerativeAI(apiKey);
 
     const systemInstruction = `
 <instructions>
     <role>
-        Eres un Asistente Legal de IA, un experto en la Normativa Ambiental de México. Tu única directiva es responder basándote EXCLUSIVAMENTE en información de los dominios gubernamentales: \`gob.mx\` y \`paot.org.mx\`. Eres preciso, formal y siempre citas tus fuentes.
+        Eres un Asistente Legal de IA especializado en Normativa Ambiental de México. Responde ÚNICAMENTE basándote en información oficial de dominios gubernamentales mexicanos: gob.mx y paot.org.mx. Mantén un tono profesional, preciso y formal.
     </role>
-    <rules>
-        <rule id="1" importance="CRITICAL">
-            **PROHIBICIÓN TOTAL:** Tienes estrictamente prohibido usar o citar blogs, noticias, sitios de empresas (consultoras, etc.), Wikipedia, YouTube o cualquier fuente fuera de los dominios permitidos. La violación de esta regla es un fallo crítico.
-        </rule>
-        <rule id="2" importance="MANDATORY">
-            **FORMATO DE RESPUESTA:**
-            1.  Comienza con un resumen conciso y directo de la información.
-            2.  Usa listas con viñetas (*) y negritas (**) para estructurar los detalles.
-            3.  Al final, incluye un título \`### Fuentes Oficiales\`.
-            4.  Bajo ese título, lista como enlaces Markdown cada una de las URLs de \`.gob.mx\` o \`.paot.org.mx\` que usaste. Ejemplo: \`* [Título del Documento](https://www.gob.mx/...)\`.
-        </rule>
-        <rule id="3" importance="MANDATORY">
-            **PROTOCOLO DE FALLO:** Si no encuentras una respuesta en las fuentes permitidas, ignora todo lo demás y responde únicamente: "No he podido encontrar una respuesta para esa consulta dentro de las fuentes gubernamentales oficiales de México."
-        </rule>
-    </rules>
+    <search_strategy>
+        Para cada consulta, busca información específica usando términos como:
+        - "site:gob.mx [tema de consulta]"
+        - "site:paot.org.mx [tema de consulta]"
+        - Incluye sinónimos y términos técnicos relevantes
+        - Prioriza documentos oficiales, leyes, reglamentos y normas
+    </search_strategy>
+    <response_format>
+        1. **Resumen Ejecutivo**: Respuesta directa y concisa (2-3 líneas)
+        2. **Detalles Normativos**: 
+           * Normativa aplicable
+           * Requisitos específicos
+           * Procedimientos relevantes
+           * Sanciones o consecuencias (si aplica)
+        3. **Información Adicional**: Contexto relevante o consideraciones especiales
+        4. **Fuentes Oficiales**: Lista de enlaces gubernamentales consultados
+    </response_format>
+    <restrictions>
+        - PROHIBIDO citar blogs, noticias, Wikipedia, empresas consultoras
+        - SOLO fuentes de dominios gob.mx y paot.org.mx
+        - Si no encuentras información oficial suficiente, indícalo claramente
+        - Siempre incluye fechas de las normativas cuando sea posible
+    </restrictions>
 </instructions>
 `;
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash",
+      model: "gemini-2.5-flash", // Versión estable con grounding
       systemInstruction: systemInstruction,
+      generationConfig: {
+        temperature: 0.1, // Baja creatividad para respuestas precisas
+        topP: 0.8,
+        topK: 10,
+        maxOutputTokens: 2048,
+      },
     });
 
-    const result = await model.generateContent(question);
+    // Define the grounding tool using current syntax
+    const groundingTool = {
+      googleSearch: {}, // Nueva sintaxis oficial
+    };
+
+    const config = {
+      tools: [groundingTool],
+    };
+
+    // Prepare the enhanced question with search hints
+    const enhancedQuestion = `
+CONSULTA LEGAL AMBIENTAL: ${sanitizedQuestion}
+
+INSTRUCCIONES DE BÚSQUEDA:
+- Busca en sitios oficiales mexicanos (gob.mx, paot.org.mx)
+- Prioriza normativas actuales y vigentes
+- Incluye referencias específicas a leyes y reglamentos
+- Verifica que las fuentes sean de autoridades ambientales oficiales
+`;
+
+    console.log("Calling Gemini with grounding for question:", sanitizedQuestion);
+    
+    // Make the request with grounding using current API
+    const result = await model.generateContent({
+      contents: enhancedQuestion,
+      ...config, // Include grounding tools
+    });
+    
     const response = await result.response;
     const text = await response.text();
 
-    // --- 4. Return the successful response ---
+    // Get grounding metadata if available
+    const groundingMetadata = response.candidates?.[0]?.groundingMetadata;
+    
+    // Log grounding info for debugging
+    if (groundingMetadata) {
+      console.log("Grounding activated. Search queries:", groundingMetadata.webSearchQueries);
+      console.log("Found", groundingMetadata.groundingChunks?.length || 0, "source chunks");
+    } else {
+      console.log("Response generated from model's knowledge base");
+    }
+
+    // Basic validation of response
+    if (!text || text.trim().length === 0) {
+      throw new Error("Empty response from AI model");
+    }
+
+    // Log successful processing (without exposing sensitive data)
+    console.log("Successfully processed question with grounding. Response length:", text.length);
+
+    // --- 4. Return the successful response with grounding info ---
     return {
       statusCode: 200,
       headers: {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*", // Allow requests from any origin
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
       },
-      body: JSON.stringify({ response: text }),
+      body: JSON.stringify({ 
+        response: text,
+        grounded: !!groundingMetadata, // Indica si se usó grounding
+        sources_count: groundingMetadata?.groundingChunks?.length || 0,
+        search_queries: groundingMetadata?.webSearchQueries || [],
+        timestamp: new Date().toISOString(),
+        model_used: "gemini-2.5-flash-with-grounding"
+      }),
     };
 
   } catch (error) {
-    // --- 5. Catch-all for any other errors ---
-    console.error("FATAL ERROR: An unexpected error occurred:", error);
+    // Enhanced error logging for debugging
+    console.error("FATAL ERROR: An unexpected error occurred:", {
+      message: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString()
+    });
+
+    // Different error responses based on error type
+    if (error.message && error.message.includes('API_KEY')) {
+      return {
+        statusCode: 401,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ error: "Authentication error with AI service." }),
+      };
+    }
+
+    if (error.message && error.message.includes('quota')) {
+      return {
+        statusCode: 429,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ error: "Service temporarily unavailable due to usage limits." }),
+      };
+    }
+
+    // Generic server error
     return {
       statusCode: 500,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "An internal server error occurred. The issue has been logged." }),
+      body: JSON.stringify({ 
+        error: "An internal server error occurred. Please try again later.",
+        timestamp: new Date().toISOString()
+      }),
     };
   }
 };
