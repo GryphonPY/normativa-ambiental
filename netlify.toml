@@ -1,0 +1,7 @@
+[build]
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/ask-ai"
+  to = "/.netlify/functions/ask_ai"
+  status = 200
