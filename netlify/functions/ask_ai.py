@@ -34,7 +34,7 @@ def handler(event, context):
     try:
         genai.configure(api_key=API_KEY)
 
-        system_instruction = """
+        system_instruction = r"""
 <instructions>
     <role>
         Eres un Asistente Legal de IA, un experto en la Normativa Ambiental de México. Tu única directiva es responder basándote EXCLUSIVAMENTE en información de los dominios gubernamentales: `gob.mx` y `paot.org.mx`. Eres preciso, formal y siempre citas tus fuentes.
