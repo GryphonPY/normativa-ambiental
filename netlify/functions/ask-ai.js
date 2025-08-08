@@ -60,29 +60,28 @@ exports.handler = async (event) => {
     <role>
         Eres un Asistente Legal de IA especializado en Normativa Ambiental de México. Responde ÚNICAMENTE basándote en información oficial de dominios gubernamentales mexicanos: gob.mx y paot.org.mx. Mantén un tono profesional, preciso y formal.
     </role>
-    <search_strategy>
-        Para cada consulta, busca información específica usando términos como:
-        - "site:gob.mx [tema de consulta]"
-        - "site:paot.org.mx [tema de consulta]"
-        - Incluye sinónimos y términos técnicos relevantes
-        - Prioriza documentos oficiales, leyes, reglamentos y normas
-    </search_strategy>
+    <search_requirements>
+        - Busca EXCLUSIVAMENTE en sitios oficiales: site:gob.mx OR site:paot.org.mx
+        - IGNORA completamente blogs, Wikipedia, empresas consultoras, universidades
+        - Si no encuentras información en fuentes oficiales, dilo claramente
+        - Prioriza: SEMARNAT, PROFEPA, INECC, CONAGUA, CONAFOR
+    </search_requirements>
     <response_format>
-        1. **Resumen Ejecutivo**: Respuesta directa y concisa (2-3 líneas)
+        1. **Resumen**: Respuesta directa y concisa (2-3 líneas)
         2. **Detalles Normativos**: 
            * Normativa aplicable
            * Requisitos específicos
            * Procedimientos relevantes
            * Sanciones o consecuencias (si aplica)
         3. **Información Adicional**: Contexto relevante o consideraciones especiales
-        4. **Fuentes Oficiales**: Lista de enlaces gubernamentales consultados
+        
+        NO incluyas sección de fuentes en tu respuesta - se agregará automáticamente.
     </response_format>
-    <restrictions>
-        - PROHIBIDO citar blogs, noticias, Wikipedia, empresas consultoras
-        - SOLO fuentes de dominios gob.mx y paot.org.mx
-        - Si no encuentras información oficial suficiente, indícalo claramente
-        - Siempre incluye fechas de las normativas cuando sea posible
-    </restrictions>
+    <critical_restrictions>
+        - PROHIBIDO ABSOLUTO citar: Wikipedia, blogs, noticias, empresas consultoras, universidades
+        - SOLO fuentes oficiales mexicanas (.gob.mx, .paot.org.mx)
+        - Si la información no está disponible en fuentes oficiales, indica: "No se encontró información oficial disponible"
+    </critical_restrictions>
 </instructions>
 `;
 
@@ -111,7 +110,7 @@ exports.handler = async (event) => {
     // Get grounding metadata if available
     const groundingMetadata = response.candidates?.[0]?.groundingMetadata;
     
-    // Function to extract sources and clean text
+    // Function to extract and filter official sources only
     function processGroundingResponse(responseText, metadata) {
       if (!metadata?.groundingChunks || metadata.groundingChunks.length === 0) {
         return {
@@ -120,32 +119,37 @@ exports.handler = async (event) => {
         };
       }
 
-      // Extract unique sources
-      const sources = [];
+      // Filter only official Mexican government sources
+      const officialSources = [];
       const seenUrls = new Set();
       
       metadata.groundingChunks.forEach((chunk, index) => {
         if (chunk?.web?.uri && !seenUrls.has(chunk.web.uri)) {
-          seenUrls.add(chunk.web.uri);
-          sources.push({
-            title: chunk.web.title || `Fuente ${sources.length + 1}`,
-            url: chunk.web.uri
-          });
+          const url = chunk.web.uri;
+          
+          // Only include official Mexican government domains
+          if (url.includes('.gob.mx') || url.includes('.paot.org.mx')) {
+            seenUrls.add(url);
+            officialSources.push({
+              title: chunk.web.title || `Fuente Oficial ${officialSources.length + 1}`,
+              url: url
+            });
+          }
         }
       });
 
-      // Create sources section
+      // Create sources section only if we have official sources
       let sourcesSection = "";
-      if (sources.length > 0) {
+      if (officialSources.length > 0) {
         sourcesSection = "\n\n### Fuentes Oficiales\n\n";
-        sources.forEach((source, index) => {
+        officialSources.forEach((source, index) => {
           sourcesSection += `* [${source.title}](${source.url})\n`;
         });
       }
 
       return {
         cleanText: responseText + sourcesSection,
-        sources: sources
+        sources: officialSources
       };
     }
 
