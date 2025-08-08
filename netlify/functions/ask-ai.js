@@ -68,7 +68,7 @@ exports.handler = async (event) => {
         - Prioriza documentos oficiales, leyes, reglamentos y normas
     </search_strategy>
     <response_format>
-        1. **Resumen Ejecutivo**: Respuesta directa y concisa (2-3 líneas)
+        1. **Resumen**: Respuesta directa y concisa (2-3 líneas)
         2. **Detalles Normativos**: 
            * Normativa aplicable
            * Requisitos específicos
