@@ -2,55 +2,46 @@
  GUÍA SÚPER SENCILLA PARA SUBIR TU PROYECTO A NETLIFY
 ============================================================
 
-¡Hola! Aquí tienes los pasos para poner tu página en línea.
-No necesitas usar la terminal ni escribir código. ¡Es muy fácil!
+¡Hola! Con estos cambios, tu proyecto es más seguro y profesional.
+Sigue estos pasos para poner tu página en línea.
 
 ------------------------------------------------------------
  PASO 1: PREPARA TU PROYECTO EN GITHUB (O SIMILAR)
 ------------------------------------------------------------
 
-Asegúrate de que todos los archivos que he creado (`netlify.toml`, `requirements.txt`, la carpeta `netlify`, etc.) estén en tu repositorio de GitHub, GitLab o Bitbucket.
+Asegúrate de que todos los archivos (`netlify.toml`, `requirements.txt`, etc.) estén en tu repositorio de GitHub, GitLab o Bitbucket.
 
 ------------------------------------------------------------
  PASO 2: CONECTA TU PROYECTO A NETLIFY
 ------------------------------------------------------------
 
 1.  Ve a la página de Netlify: https://www.netlify.com/
-2.  Regístrate o inicia sesión. Puedes usar tu cuenta de GitHub para que sea más fácil.
-3.  Una vez dentro, busca un botón que diga **"Add new site"** (Añadir nuevo sitio) y haz clic en él.
-4.  Selecciona la opción **"Import an existing project"** (Importar un proyecto existente).
+2.  Inicia sesión (puedes usar tu cuenta de GitHub).
+3.  Busca y haz clic en **"Add new site"** -> **"Import an existing project"**.
+4.  Conéctate a tu proveedor de Git y selecciona el repositorio de este proyecto.
 
 ------------------------------------------------------------
- PASO 3: SELECCIONA TU REPOSITORIO
+ PASO 3: CONFIGURA EL DESPLIEGUE
 ------------------------------------------------------------
 
-1.  Netlify te pedirá que te conectes a tu proveedor de Git (GitHub, etc.). Haz clic en el que uses.
-2.  Te mostrará una lista de tus repositorios. Busca y selecciona el de este proyecto.
+Netlify leerá la configuración de los archivos y la preparará. No deberías necesitar cambiar nada en la configuración de "Build settings".
+
+Lo único que **DEBES** hacer es añadir la clave de la IA.
+
+1.  En la página de configuración del despliegue, busca una sección o botón que diga **"Variables"**, **"Environment variables"** o **"Advanced build settings"**.
+2.  Haz clic para añadir una nueva variable:
+    *   En el campo **"Key"** (Clave), escribe exactamente: `GOOGLE_API_KEY`
+    *   En el campo **"Value"** (Valor), pega la clave de IA que me diste: `AIzaSyCKYf3Qq6j0Lfve3_0G3vtZHIN-zm8-U-w`
+3.  Guarda la variable.
 
 ------------------------------------------------------------
- PASO 4: DESPLIEGA EL SITIO (¡EL PASO FINAL!)
+ PASO 4: DESPLIEGA EL SITIO
 ------------------------------------------------------------
 
-1.  Después de seleccionar el repositorio, Netlify te mostrará una página de configuración.
-2.  **NO NECESITAS CAMBIAR NADA AQUÍ.** Gracias al archivo `netlify.toml` que he creado, Netlify ya sabe cómo construir y desplegar todo automáticamente.
-3.  Simplemente baja hasta el final de la página y haz clic en el botón **"Deploy site"** (Desplegar sitio).
+1.  Una vez guardada la variable, haz clic en el botón **"Deploy site"** (Desplegar sitio).
 
 ¡Y YA ESTÁ!
 
-Netlify empezará a trabajar. En uno o dos minutos, tu sitio estará en línea. Netlify te dará una URL pública (como `nombre-aleatorio.netlify.app`) donde podrás ver tu página funcionando, ¡incluyendo el asistente de IA!
+Netlify construirá tu sitio y tu función en la nube. En uno o dos minutos, tu página estará en línea y el asistente de IA funcionará correctamente.
 
-------------------------------------------------------------
- IMPORTANTE: SOBRE LA CLAVE DE LA IA
-------------------------------------------------------------
-
-Como me pediste, he puesto la clave de la IA directamente en el código para que no tuvieras que configurar nada. Si en el futuro quieres cambiarla, solo tienes que editar el archivo:
-`netlify/functions/ask_ai.py`
-Y cambiar la línea que dice `API_KEY = "AIzaSy..."` por tu nueva clave.
-
-¡Eso es todo! Mucho éxito con tu proyecto.
-
-------------------------------------------------------------
- NOTA ADICIONAL (SOBRE EL ARREGLO)
-------------------------------------------------------------
-
-Se ha corregido la configuración de Netlify (`netlify.toml`) para asegurar que detecte y publique la función de IA correctamente. Con estos últimos cambios, el despliegue debería funcionar sin problemas.
+Este método es el más seguro y profesional. ¡Mucho éxito con tu proyecto!

@@ -3,10 +3,13 @@ import json
 import google.generativeai as genai
 
 def handler(event, context):
-    # IMPORTANT: The user has explicitly requested to have the API key
-    # hardcoded in the source code to simplify the deployment process for them.
-    # They have acknowledged the security implications and will manage the key.
-    API_KEY = "AIzaSyCKYf3Qq6j0Lfve3_0G3vtZHIN-zm8-U-w"
+    # Read the API key from environment variables. This is the secure way to handle secrets.
+    API_KEY = os.getenv("GOOGLE_API_KEY")
+    if not API_KEY:
+        return {
+            'statusCode': 500,
+            'body': json.dumps({'error': 'Error: GOOGLE_API_KEY is not set in the Netlify environment.'})
+        }
 
     # Netlify functions are triggered by various events. For an API gateway
     # (which is how this will be used), the data is in the 'body' field.
